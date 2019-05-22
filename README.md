@@ -1,4 +1,5 @@
 # Endpoints
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 ## Usage
 To get started with Endpoints, begin by defining an instance of the `Endpoint` protocol:
@@ -38,8 +39,7 @@ communicator.performRequest(to: endpoint) { result in
 
 
 ## Installation
-### Carthage
-Begin by adding Endpoints to your Cartfile:
+The preferred way of installation is through [Carthage](https://github.com/Carthage/Carthage):
 
 ```
 git "ssh://git@github.com:isotopsweden/Endpoints.git" "master"
