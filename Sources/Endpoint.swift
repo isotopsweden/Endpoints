@@ -16,7 +16,6 @@ public enum HTTPMethod: String {
 public protocol Endpoint {
     associatedtype Packer: DataPacker
     associatedtype Unpacker: DataUnpacker
-    associatedtype ErrorUnpacker: DataUnpacker
 
     var baseURL: URL { get }
     var path: String { get }
@@ -27,8 +26,6 @@ public protocol Endpoint {
 
     var requestBuilder: RequestBuilder<Packer> { get }
     var responseParser: ResponseParser<Unpacker> { get }
-
-    var errorParser: ResponseParser<ErrorUnpacker> { get }
 }
 
 public extension Endpoint {
@@ -44,15 +41,11 @@ public extension Endpoint {
         return ResponseParser(unpacker: EmptyUnpacker())
     }
 
-    var errorParser: ResponseParser<EmptyUnpacker> {
-        return ResponseParser(unpacker: EmptyUnpacker())
-    }
-
     func asURLRequest() throws -> URLRequest {
         var urlComponents = URLComponents(url: baseURL.appendingPathComponent(path), resolvingAgainstBaseURL: false)
         urlComponents?.queryItems = queryItems
 
-        guard let url = urlComponents?.url else { throw CommunicatorError<ErrorUnpacker.DataType>.invalidURL }
+        guard let url = urlComponents?.url else { throw CommunicatorError.invalidURL }
 
         return try requestBuilder.buildURLRequest(url: url, headers: headers, method: method)
     }

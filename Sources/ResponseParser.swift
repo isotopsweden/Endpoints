@@ -15,6 +15,13 @@ public struct ResponseParser<Unpacker: DataUnpacker> {
     }
 
     public func parseResponse(response: HTTPURLResponse, data: Data) throws -> Unpacker.DataType {
-        return try unpacker.unpack(data)
+        switch response.statusCode {
+        case HTTPURLResponse.successfulStatusCode:
+            return try unpacker.unpack(data)
+        case 400..<500:
+            throw CommunicatorError.unacceptableStatusCode(.clientError(code: response.statusCode, data: data))
+        default:
+            throw CommunicatorError.unacceptableStatusCode(.serverError(code: response.statusCode))
+        }
     }
 }

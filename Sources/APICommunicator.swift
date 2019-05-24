@@ -23,7 +23,7 @@ public final class APICommunicator: Communicator {
         urlSession.invalidateAndCancel()
     }
 
-    public func performRequest<E>(to endpoint: E, completionHandler: @escaping CompletionHandler<E.Unpacker.DataType, E.ErrorUnpacker.DataType>) -> RequestToken? where E: Endpoint {
+    public func performRequest<E>(to endpoint: E, completionHandler: @escaping CompletionHandler<E.Unpacker.DataType>) -> RequestToken? where E: Endpoint {
         let request: URLRequest
 
         do {
@@ -31,7 +31,7 @@ public final class APICommunicator: Communicator {
         } catch {
             log(error: error)
 
-            completionHandler(.failure(.unknownError(error)))
+            completionHandler(.failure(error))
             return nil
         }
 
@@ -46,18 +46,7 @@ public final class APICommunicator: Communicator {
                 case (let httpResponse as HTTPURLResponse, let data?, nil):
                     self?.log(response: httpResponse)
 
-                    let decodedData: E.Unpacker.DataType
-
-                    switch httpResponse.statusCode {
-                    case HTTPURLResponse.successfulStatusCode:
-                        decodedData = try endpoint.responseParser.parseResponse(response: httpResponse, data: data)
-                    case 400..<500:
-                        let errorBody = try endpoint.errorParser.parseResponse(response: httpResponse, data: data)
-                        throw CommunicatorError.unacceptableStatusCode(.clientError(code: httpResponse.statusCode, errorBody))
-                    default:
-                        throw CommunicatorError<E.ErrorUnpacker.DataType>.unacceptableStatusCode(.serverError(code: httpResponse.statusCode))
-                    }
-
+                    let decodedData = try endpoint.responseParser.parseResponse(response: httpResponse, data: data)
                     let communicatorResponse = CommunicatorResponse(
                         headers: httpResponse.allHeaderFields,
                         code: httpResponse.statusCode,
@@ -66,23 +55,12 @@ public final class APICommunicator: Communicator {
                     callbackQueue.async { completionHandler(.success(communicatorResponse)) }
 
                 case (_, _, nil):
-                    throw CommunicatorError<E.ErrorUnpacker.DataType>.unsupportedResponse
+                    throw CommunicatorError.unsupportedResponse
                 }
             } catch {
                 self?.log(error: error, url: request.url)
 
-                let communicatorError: CommunicatorError<E.ErrorUnpacker.DataType>
-
-                switch error {
-                case let error as CommunicatorError<E.ErrorUnpacker.DataType>:
-                    communicatorError = error
-                case let error as DecodingError:
-                    communicatorError = .decodingError(error)
-                default:
-                    communicatorError = .unknownError(error)
-                }
-
-                callbackQueue.async { completionHandler(.failure(communicatorError)) }
+                callbackQueue.async { completionHandler(.failure(error)) }
             }
         }
 
