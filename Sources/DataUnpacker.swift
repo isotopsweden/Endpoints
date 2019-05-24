@@ -20,16 +20,9 @@ public struct EmptyUnpacker: DataUnpacker {
 }
 
 public struct JSONUnpacker<D: Decodable>: DataUnpacker {
-    public static var defaultDecoder: JSONDecoder {
-        let instance = JSONDecoder()
-        instance.dateDecodingStrategy = .secondsSince1970
-        instance.keyDecodingStrategy = .convertFromSnakeCase
-        return instance
-    }
-
     private let decoder: JSONDecoder
 
-    public init(decoder: JSONDecoder = JSONUnpacker.defaultDecoder) {
+    public init(decoder: JSONDecoder) {
         self.decoder = decoder
     }
 

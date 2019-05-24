@@ -46,7 +46,8 @@ public final class APICommunicator: Communicator {
                 case (let httpResponse as HTTPURLResponse, let data?, nil):
                     self?.log(response: httpResponse)
 
-                    let decodedData = try endpoint.responseParser.parseResponse(response: httpResponse, data: data)
+                    let parser = ResponseParser(unpacker: endpoint.unpacker)
+                    let decodedData = try parser.parseResponse(response: httpResponse, data: data)
                     let communicatorResponse = CommunicatorResponse(
                         headers: httpResponse.allHeaderFields,
                         code: httpResponse.statusCode,

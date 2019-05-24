@@ -24,21 +24,25 @@ public protocol Endpoint {
     var method: HTTPMethod { get }
     var headers: [String: String] { get }
 
-    var requestBuilder: RequestBuilder<Packer> { get }
-    var responseParser: ResponseParser<Unpacker> { get }
+    var packer: Packer { get }
+    var unpacker: Unpacker { get }
 }
 
 public extension Endpoint {
+    var queryItems: [URLQueryItem] {
+        return []
+    }
+
     var headers: [String: String] {
         return [:]
     }
 
-    var requestBuilder: RequestBuilder<EmptyPacker> {
-        return RequestBuilder(packer: EmptyPacker())
+    var packer: EmptyPacker {
+        return EmptyPacker()
     }
 
-    var responseParser: ResponseParser<EmptyUnpacker> {
-        return ResponseParser(unpacker: EmptyUnpacker())
+    var unpacker: EmptyUnpacker {
+        return EmptyUnpacker()
     }
 
     func asURLRequest() throws -> URLRequest {
@@ -47,12 +51,7 @@ public extension Endpoint {
 
         guard let url = urlComponents?.url else { throw CommunicatorError.invalidURL }
 
+        let requestBuilder = RequestBuilder(packer: packer)
         return try requestBuilder.buildURLRequest(url: url, headers: headers, method: method)
-    }
-}
-
-public extension Endpoint where Unpacker.DataType: Decodable {
-    var responseParser: ResponseParser<JSONUnpacker<Unpacker.DataType>> {
-        return ResponseParser(unpacker: JSONUnpacker())
     }
 }
