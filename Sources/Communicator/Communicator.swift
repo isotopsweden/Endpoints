@@ -14,7 +14,7 @@ public protocol Communicator {
     func performRequest<E>(
         to endpoint: E,
         completionHandler: @escaping CompletionHandler<E.Unpacker.DataType>
-        ) -> RequestToken? where E: Endpoint
+        ) -> Cancellable? where E: Endpoint
 }
 
 public struct CommunicatorResponse<Body> {

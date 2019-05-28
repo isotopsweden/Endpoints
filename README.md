@@ -115,6 +115,39 @@ extension Endpoint {
 }
 ```
 
+### Transporters
+The `APICommunicator` class relies on the `Transporter` protocol to do the heavy lifting. This is a simple procotol containing a single function:
+
+```swift
+public protocol Transporter {
+    func send(_ request: URLRequest, completionHandler: @escaping (Result<TransportationResult, Error>) -> Void) -> Cancellable
+}
+```
+
+By default, Endpoints extends `URLSession` to conform to this protocol and then uses it to perform the actual network requests. This allows you to create your own custom `Transporter`s, for example for authentication:
+
+```swift
+class AuthorizationTransporter: Transporter {
+    private let base: Transporter
+    private let authenticationDetails: String
+
+    init(base: Transporter, authenticationDetails: String) {
+        self.base = base
+        self.authenticationDetails = authenticationDetails
+    }
+
+    func send(_ request: URLRequest, completionHandler: @escaping (Result<TransportationResult, Error>) -> Void) -> Cancellable {
+        var modifiedRequest = request
+        modifiedRequest.addValue("Basic \(authenticationDetails)", forHTTPHeaderField: "Authorization")
+
+        return base.send(modifiedRequest, completionHandler: completionHandler)
+    }
+}
+
+let authTransporter = AuthorizationTransporter(base: URLSession.shared, authenticationDetails: "...")
+let communicator = APICommunicator(transport: authTransporter)
+```
+
 ## Installation
 The preferred way of installation is through [Carthage](https://github.com/Carthage/Carthage):
 
