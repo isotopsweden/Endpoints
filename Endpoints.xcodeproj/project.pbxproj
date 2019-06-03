@@ -12,12 +12,13 @@
 		F4CA9F432281CE52000CD820 /* DataPacker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CA9F422281CE52000CD820 /* DataPacker.swift */; };
 		F4CA9F452281CEAE000CD820 /* DataUnpacker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CA9F442281CEAE000CD820 /* DataUnpacker.swift */; };
 		F4CA9F472281CF93000CD820 /* ResponseParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CA9F462281CF93000CD820 /* ResponseParser.swift */; };
-		F4CA9F4A2281D0AE000CD820 /* HTTPURLResponse+validateHTTPStatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CA9F492281D0AE000CD820 /* HTTPURLResponse+validateHTTPStatusCode.swift */; };
 		F4CA9F4C2281D0D9000CD820 /* Communicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CA9F4B2281D0D9000CD820 /* Communicator.swift */; };
-		F4CA9F4E2281D267000CD820 /* RequestToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CA9F4D2281D267000CD820 /* RequestToken.swift */; };
 		F4CA9F502281D429000CD820 /* APICommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CA9F4F2281D429000CD820 /* APICommunicator.swift */; };
 		F4CA9F522281D557000CD820 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CA9F512281D557000CD820 /* Logger.swift */; };
 		F4CA9F542281D6A9000CD820 /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CA9F532281D6A9000CD820 /* RequestBuilder.swift */; };
+		F4E24803229951EE004DD390 /* Transporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E24802229951EE004DD390 /* Transporter.swift */; };
+		F4E24805229989E6004DD390 /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E24804229989E6004DD390 /* Cancellable.swift */; };
+		F4E2480922998A28004DD390 /* URLSession+Transporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E2480822998A28004DD390 /* URLSession+Transporter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,12 +29,13 @@
 		F4CA9F422281CE52000CD820 /* DataPacker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPacker.swift; sourceTree = "<group>"; };
 		F4CA9F442281CEAE000CD820 /* DataUnpacker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataUnpacker.swift; sourceTree = "<group>"; };
 		F4CA9F462281CF93000CD820 /* ResponseParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseParser.swift; sourceTree = "<group>"; };
-		F4CA9F492281D0AE000CD820 /* HTTPURLResponse+validateHTTPStatusCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPURLResponse+validateHTTPStatusCode.swift"; sourceTree = "<group>"; };
 		F4CA9F4B2281D0D9000CD820 /* Communicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Communicator.swift; sourceTree = "<group>"; };
-		F4CA9F4D2281D267000CD820 /* RequestToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestToken.swift; sourceTree = "<group>"; };
 		F4CA9F4F2281D429000CD820 /* APICommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICommunicator.swift; sourceTree = "<group>"; };
 		F4CA9F512281D557000CD820 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		F4CA9F532281D6A9000CD820 /* RequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
+		F4E24802229951EE004DD390 /* Transporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transporter.swift; sourceTree = "<group>"; };
+		F4E24804229989E6004DD390 /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
+		F4E2480822998A28004DD390 /* URLSession+Transporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Transporter.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,26 +70,35 @@
 			children = (
 				F4CA9F392281C997000CD820 /* Endpoints.h */,
 				F4CA9F3A2281C997000CD820 /* Info-iOS.plist */,
-				F4CA9F4F2281D429000CD820 /* APICommunicator.swift */,
-				F4CA9F4B2281D0D9000CD820 /* Communicator.swift */,
+				F4E24804229989E6004DD390 /* Cancellable.swift */,
 				F4CA9F422281CE52000CD820 /* DataPacker.swift */,
 				F4CA9F442281CEAE000CD820 /* DataUnpacker.swift */,
 				F4CA9F402281CDA0000CD820 /* Endpoint.swift */,
 				F4CA9F512281D557000CD820 /* Logger.swift */,
 				F4CA9F532281D6A9000CD820 /* RequestBuilder.swift */,
-				F4CA9F4D2281D267000CD820 /* RequestToken.swift */,
 				F4CA9F462281CF93000CD820 /* ResponseParser.swift */,
-				F4CA9F482281D097000CD820 /* Extensions */,
+				F4E2480622998A04004DD390 /* Communicator */,
+				F4E2480722998A0D004DD390 /* Transporter */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
 		};
-		F4CA9F482281D097000CD820 /* Extensions */ = {
+		F4E2480622998A04004DD390 /* Communicator */ = {
 			isa = PBXGroup;
 			children = (
-				F4CA9F492281D0AE000CD820 /* HTTPURLResponse+validateHTTPStatusCode.swift */,
+				F4CA9F4F2281D429000CD820 /* APICommunicator.swift */,
+				F4CA9F4B2281D0D9000CD820 /* Communicator.swift */,
 			);
-			path = Extensions;
+			path = Communicator;
+			sourceTree = "<group>";
+		};
+		F4E2480722998A0D004DD390 /* Transporter */ = {
+			isa = PBXGroup;
+			children = (
+				F4E24802229951EE004DD390 /* Transporter.swift */,
+				F4E2480822998A28004DD390 /* URLSession+Transporter.swift */,
+			);
+			path = Transporter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,12 +180,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4CA9F4C2281D0D9000CD820 /* Communicator.swift in Sources */,
+				F4E24803229951EE004DD390 /* Transporter.swift in Sources */,
+				F4E2480922998A28004DD390 /* URLSession+Transporter.swift in Sources */,
 				F4CA9F452281CEAE000CD820 /* DataUnpacker.swift in Sources */,
-				F4CA9F4E2281D267000CD820 /* RequestToken.swift in Sources */,
 				F4CA9F502281D429000CD820 /* APICommunicator.swift in Sources */,
 				F4CA9F522281D557000CD820 /* Logger.swift in Sources */,
+				F4E24805229989E6004DD390 /* Cancellable.swift in Sources */,
 				F4CA9F542281D6A9000CD820 /* RequestBuilder.swift in Sources */,
-				F4CA9F4A2281D0AE000CD820 /* HTTPURLResponse+validateHTTPStatusCode.swift in Sources */,
 				F4CA9F412281CDA0000CD820 /* Endpoint.swift in Sources */,
 				F4CA9F432281CE52000CD820 /* DataPacker.swift in Sources */,
 				F4CA9F472281CF93000CD820 /* ResponseParser.swift in Sources */,
