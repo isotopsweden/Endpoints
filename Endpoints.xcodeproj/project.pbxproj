@@ -70,15 +70,7 @@
 			children = (
 				F4CA9F392281C997000CD820 /* Endpoints.h */,
 				F4CA9F3A2281C997000CD820 /* Info-iOS.plist */,
-				F4E24804229989E6004DD390 /* Cancellable.swift */,
-				F4CA9F422281CE52000CD820 /* DataPacker.swift */,
-				F4CA9F442281CEAE000CD820 /* DataUnpacker.swift */,
-				F4CA9F402281CDA0000CD820 /* Endpoint.swift */,
-				F4CA9F512281D557000CD820 /* Logger.swift */,
-				F4CA9F532281D6A9000CD820 /* RequestBuilder.swift */,
-				F4CA9F462281CF93000CD820 /* ResponseParser.swift */,
-				F4E2480622998A04004DD390 /* Communicator */,
-				F4E2480722998A0D004DD390 /* Transporter */,
+				F4F4B5DC22AA7E4B00C8C5C9 /* Endpoints */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -99,6 +91,22 @@
 				F4E2480822998A28004DD390 /* URLSession+Transporter.swift */,
 			);
 			path = Transporter;
+			sourceTree = "<group>";
+		};
+		F4F4B5DC22AA7E4B00C8C5C9 /* Endpoints */ = {
+			isa = PBXGroup;
+			children = (
+				F4E24804229989E6004DD390 /* Cancellable.swift */,
+				F4CA9F422281CE52000CD820 /* DataPacker.swift */,
+				F4CA9F442281CEAE000CD820 /* DataUnpacker.swift */,
+				F4CA9F402281CDA0000CD820 /* Endpoint.swift */,
+				F4CA9F512281D557000CD820 /* Logger.swift */,
+				F4CA9F532281D6A9000CD820 /* RequestBuilder.swift */,
+				F4CA9F462281CF93000CD820 /* ResponseParser.swift */,
+				F4E2480622998A04004DD390 /* Communicator */,
+				F4E2480722998A0D004DD390 /* Transporter */,
+			);
+			path = Endpoints;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
