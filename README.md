@@ -1,5 +1,6 @@
 # Endpoints
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Swift Package Manager compatible](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg)](https://github.com/apple/swift-package-manager)
 
 Endpoints is a thin network abstraction layer on top of `URLSession`, that enables you to get up and running with your networking code in seconds:
 
@@ -149,8 +150,14 @@ let communicator = APICommunicator(transport: authTransporter)
 ```
 
 ## Installation
-The preferred way of installation is through [Carthage](https://github.com/Carthage/Carthage):
+The preferred way of installation is through [Swift Package Manager](https://github.com/apple/swift-package-manager). If you're using Xcode 11, you can add Endpoints as a dependency by simply clicking `File -> Swift Packages -> Add Package Dependency...`. You can also add it manually to your `Package.swift` file:
 
 ```
-github "isotopsweden/Endpoints" "master"
+.package(url: "https://github.com/isotopsweden/Endpoints", from: "1.0.0")
+```
+
+Installation through [Carthage](https://github.com/Carthage/Carthage) is also supported:
+
+```
+github "isotopsweden/Endpoints" == 1.0.0
 ```
