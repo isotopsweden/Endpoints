@@ -17,12 +17,6 @@ public protocol Communicator {
         ) -> Cancellable? where E: Endpoint
 }
 
-public struct CommunicatorResponse<Body> {
-    public let headers: [AnyHashable: Any]
-    public let code: Int
-    public let body: Body
-}
-
 public enum CommunicatorError: Error {
     case invalidURL
     case unacceptableStatusCode(ErrorReason)

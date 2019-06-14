@@ -1,6 +1,6 @@
 //
 //  URLSession+Transporter.swift
-//  Endpoints iOS
+//  Endpoints
 //
 //  Created by Simon Jarbrant on 2019-05-25.
 //

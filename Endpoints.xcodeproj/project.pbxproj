@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F438657922B22DCA001E50BE /* CommunicatorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F438657822B22DCA001E50BE /* CommunicatorResponse.swift */; };
+		F438657B22B22DD9001E50BE /* TransportationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = F438657A22B22DD9001E50BE /* TransportationResult.swift */; };
 		F4CA9F3B2281C997000CD820 /* Endpoints.h in Headers */ = {isa = PBXBuildFile; fileRef = F4CA9F392281C997000CD820 /* Endpoints.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F4CA9F412281CDA0000CD820 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CA9F402281CDA0000CD820 /* Endpoint.swift */; };
 		F4CA9F432281CE52000CD820 /* DataPacker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CA9F422281CE52000CD820 /* DataPacker.swift */; };
@@ -22,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F438657822B22DCA001E50BE /* CommunicatorResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunicatorResponse.swift; sourceTree = "<group>"; };
+		F438657A22B22DD9001E50BE /* TransportationResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransportationResult.swift; sourceTree = "<group>"; };
 		F4CA9F362281C997000CD820 /* Endpoints.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Endpoints.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4CA9F392281C997000CD820 /* Endpoints.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Endpoints.h; sourceTree = "<group>"; };
 		F4CA9F3A2281C997000CD820 /* Info-iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
@@ -80,6 +84,7 @@
 			children = (
 				F4CA9F4F2281D429000CD820 /* APICommunicator.swift */,
 				F4CA9F4B2281D0D9000CD820 /* Communicator.swift */,
+				F438657822B22DCA001E50BE /* CommunicatorResponse.swift */,
 			);
 			path = Communicator;
 			sourceTree = "<group>";
@@ -87,6 +92,7 @@
 		F4E2480722998A0D004DD390 /* Transporter */ = {
 			isa = PBXGroup;
 			children = (
+				F438657A22B22DD9001E50BE /* TransportationResult.swift */,
 				F4E24802229951EE004DD390 /* Transporter.swift */,
 				F4E2480822998A28004DD390 /* URLSession+Transporter.swift */,
 			);
@@ -188,11 +194,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4CA9F4C2281D0D9000CD820 /* Communicator.swift in Sources */,
+				F438657922B22DCA001E50BE /* CommunicatorResponse.swift in Sources */,
 				F4E24803229951EE004DD390 /* Transporter.swift in Sources */,
 				F4E2480922998A28004DD390 /* URLSession+Transporter.swift in Sources */,
 				F4CA9F452281CEAE000CD820 /* DataUnpacker.swift in Sources */,
 				F4CA9F502281D429000CD820 /* APICommunicator.swift in Sources */,
 				F4CA9F522281D557000CD820 /* Logger.swift in Sources */,
+				F438657B22B22DD9001E50BE /* TransportationResult.swift in Sources */,
 				F4E24805229989E6004DD390 /* Cancellable.swift in Sources */,
 				F4CA9F542281D6A9000CD820 /* RequestBuilder.swift in Sources */,
 				F4CA9F412281CDA0000CD820 /* Endpoint.swift in Sources */,
