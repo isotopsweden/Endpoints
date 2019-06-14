@@ -8,13 +8,13 @@
 import Foundation
 
 public struct CommunicatorResponse<Body> {
-    public let headers: [AnyHashable: Any]
-    public let code: Int
     public let body: Body
+    public let code: Int
+    public let headers: [AnyHashable: Any]
 
-    public init(headers: [AnyHashable: Any] = [:], code: Int, body: Body) {
-        self.headers = headers
-        self.code = code
+    public init(body: Body, code: Int, headers: [AnyHashable: Any] = [:]) {
         self.body = body
+        self.code = code
+        self.headers = headers
     }
 }
