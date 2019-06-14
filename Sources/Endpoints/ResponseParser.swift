@@ -25,9 +25,9 @@ public struct ResponseParser<Unpacker: DataUnpacker> {
         case HTTPURLResponse.successfulStatusCode:
             let decodedData = try unpacker.unpack(data)
             let response = CommunicatorResponse(
-                headers: response.allHeaderFields,
+                body: decodedData,
                 code: response.statusCode,
-                body: decodedData)
+                headers: response.allHeaderFields)
 
             return response
 
