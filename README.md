@@ -69,7 +69,7 @@ extension JSONDecoder {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .secondsSince1970
         decoder.keyDecodingStrategy = .convertFromSnakeCase
-        
+
         return decoder
     }
 }
@@ -159,5 +159,5 @@ The preferred way of installation is through [Swift Package Manager](https://git
 Installation through [Carthage](https://github.com/Carthage/Carthage) is also supported:
 
 ```
-github "isotopsweden/Endpoints" == 1.0.0
+github "isotopsweden/Endpoints" ~> 1.0.0
 ```
