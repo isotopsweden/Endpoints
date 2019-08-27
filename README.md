@@ -1,4 +1,5 @@
 # Endpoints
+[![Build status](https://build.appcenter.ms/v0.1/apps/ee9e4d79-32a9-4792-8de5-ef5b746d078d/branches/master/badge)](https://appcenter.ms)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Swift Package Manager compatible](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg)](https://github.com/apple/swift-package-manager)
 
