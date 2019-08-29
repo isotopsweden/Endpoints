@@ -1,5 +1,5 @@
 # Endpoints
-[![Build status](https://build.appcenter.ms/v0.1/apps/ee9e4d79-32a9-4792-8de5-ef5b746d078d/branches/master/badge)](https://appcenter.ms)
+[![Build Status](https://dev.azure.com/team-tck/Endpoints/_apis/build/status/isotopsweden.Endpoints?branchName=master)](https://dev.azure.com/team-tck/Endpoints/_build/latest?definitionId=1&branchName=master)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Swift Package Manager compatible](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg)](https://github.com/apple/swift-package-manager)
 
