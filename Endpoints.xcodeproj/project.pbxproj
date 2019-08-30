@@ -26,6 +26,7 @@
 /* Begin PBXFileReference section */
 		F438657822B22DCA001E50BE /* CommunicatorResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunicatorResponse.swift; sourceTree = "<group>"; };
 		F438657A22B22DD9001E50BE /* TransportationResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransportationResult.swift; sourceTree = "<group>"; };
+		F4439D6F2317CDE6008C9AC8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		F4CA9F362281C997000CD820 /* Endpoints.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Endpoints.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4CA9F392281C997000CD820 /* Endpoints.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Endpoints.h; sourceTree = "<group>"; };
 		F4CA9F3A2281C997000CD820 /* Info-iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
@@ -56,6 +57,7 @@
 		F4CA9F2A2281C8CF000CD820 = {
 			isa = PBXGroup;
 			children = (
+				F4439D6F2317CDE6008C9AC8 /* README.md */,
 				F4CA9F3F2281CA8D000CD820 /* Sources */,
 				F4CA9F372281C997000CD820 /* Products */,
 			);
