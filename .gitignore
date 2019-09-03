@@ -4,3 +4,6 @@ xcuserdata/
 # Swift Package Manager
 .build/
 
+# Carthage
+Carthage/
+
