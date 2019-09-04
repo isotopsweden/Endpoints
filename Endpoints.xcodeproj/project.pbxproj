@@ -456,6 +456,7 @@
 		F4CA9F2F2281C8CF000CD820 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ENDPOINTS_VERSION = 1.1.0;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 			};
 			name = Debug;
@@ -463,6 +464,7 @@
 		F4CA9F302281C8CF000CD820 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ENDPOINTS_VERSION = 1.1.0;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 			};
 			name = Release;
