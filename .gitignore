@@ -1,3 +1,9 @@
 # User settings
 xcuserdata/
 
+# Swift Package Manager
+.build/
+
+# Carthage
+Carthage/
+
