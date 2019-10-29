@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import EndpointsTesting
 
 @testable import Endpoints
 
