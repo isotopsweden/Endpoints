@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F438657922B22DCA001E50BE /* CommunicatorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F438657822B22DCA001E50BE /* CommunicatorResponse.swift */; };
-		F438657B22B22DD9001E50BE /* TransportationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = F438657A22B22DD9001E50BE /* TransportationResult.swift */; };
+		F438657B22B22DD9001E50BE /* TransporterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F438657A22B22DD9001E50BE /* TransporterResponse.swift */; };
 		F45596F0231E7C270065DBDF /* Endpoints.h in Headers */ = {isa = PBXBuildFile; fileRef = F4CA9F392281C997000CD820 /* Endpoints.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F45596F1231E7C440065DBDF /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E24804229989E6004DD390 /* Cancellable.swift */; };
 		F45596F2231E7C470065DBDF /* DataPacker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CA9F422281CE52000CD820 /* DataPacker.swift */; };
@@ -20,7 +20,7 @@
 		F45596F8231E7C580065DBDF /* APICommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CA9F4F2281D429000CD820 /* APICommunicator.swift */; };
 		F45596F9231E7C5A0065DBDF /* Communicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CA9F4B2281D0D9000CD820 /* Communicator.swift */; };
 		F45596FA231E7C5D0065DBDF /* CommunicatorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F438657822B22DCA001E50BE /* CommunicatorResponse.swift */; };
-		F45596FB231E7C5F0065DBDF /* TransportationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = F438657A22B22DD9001E50BE /* TransportationResult.swift */; };
+		F45596FB231E7C5F0065DBDF /* TransporterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F438657A22B22DD9001E50BE /* TransporterResponse.swift */; };
 		F45596FC231E7C620065DBDF /* Transporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E24802229951EE004DD390 /* Transporter.swift */; };
 		F45596FD231E7C640065DBDF /* URLSession+Transporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E2480822998A28004DD390 /* URLSession+Transporter.swift */; };
 		F4C6693223686E1E00116CEE /* CommunicatorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C6693123686E1E00116CEE /* CommunicatorError.swift */; };
@@ -41,7 +41,7 @@
 
 /* Begin PBXFileReference section */
 		F438657822B22DCA001E50BE /* CommunicatorResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunicatorResponse.swift; sourceTree = "<group>"; };
-		F438657A22B22DD9001E50BE /* TransportationResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransportationResult.swift; sourceTree = "<group>"; };
+		F438657A22B22DD9001E50BE /* TransporterResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransporterResponse.swift; sourceTree = "<group>"; };
 		F4439D6F2317CDE6008C9AC8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		F45596E8231E7B470065DBDF /* Endpoints.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Endpoints.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F45596EB231E7B470065DBDF /* Info-macOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-macOS.plist"; sourceTree = "<group>"; };
@@ -123,7 +123,7 @@
 		F4E2480722998A0D004DD390 /* Transporter */ = {
 			isa = PBXGroup;
 			children = (
-				F438657A22B22DD9001E50BE /* TransportationResult.swift */,
+				F438657A22B22DD9001E50BE /* TransporterResponse.swift */,
 				F4E24802229951EE004DD390 /* Transporter.swift */,
 				F4E2480822998A28004DD390 /* URLSession+Transporter.swift */,
 			);
@@ -273,7 +273,7 @@
 				F45596F6231E7C530065DBDF /* RequestBuilder.swift in Sources */,
 				F45596F4231E7C4E0065DBDF /* Endpoint.swift in Sources */,
 				F45596F2231E7C470065DBDF /* DataPacker.swift in Sources */,
-				F45596FB231E7C5F0065DBDF /* TransportationResult.swift in Sources */,
+				F45596FB231E7C5F0065DBDF /* TransporterResponse.swift in Sources */,
 				F45596F7231E7C550065DBDF /* ResponseParser.swift in Sources */,
 				F4C6693323686E1E00116CEE /* CommunicatorError.swift in Sources */,
 			);
@@ -290,7 +290,7 @@
 				F4CA9F452281CEAE000CD820 /* DataUnpacker.swift in Sources */,
 				F4CA9F502281D429000CD820 /* APICommunicator.swift in Sources */,
 				F4CA9F522281D557000CD820 /* Logger.swift in Sources */,
-				F438657B22B22DD9001E50BE /* TransportationResult.swift in Sources */,
+				F438657B22B22DD9001E50BE /* TransporterResponse.swift in Sources */,
 				F4E24805229989E6004DD390 /* Cancellable.swift in Sources */,
 				F4CA9F542281D6A9000CD820 /* RequestBuilder.swift in Sources */,
 				F4CA9F412281CDA0000CD820 /* Endpoint.swift in Sources */,
