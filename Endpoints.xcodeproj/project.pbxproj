@@ -119,12 +119,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F4172607236891120050BB25 /* EndpointsTests */ = {
+			isa = PBXGroup;
+			children = (
+				F4C6693A2368822000116CEE /* EndpointsTests.swift */,
+			);
+			path = EndpointsTests;
+			sourceTree = "<group>";
+		};
 		F45805F5236885150088DB58 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
 				F4C6693C2368822000116CEE /* Info-iOS.plist */,
 				F45805F7236885690088DB58 /* Info-macOS.plist */,
-				F4C6693A2368822000116CEE /* EndpointsTests.swift */,
+				F4172607236891120050BB25 /* EndpointsTests */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
