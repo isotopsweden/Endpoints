@@ -14,14 +14,19 @@ public struct RequestBuilder<Packer: DataPacker> {
         self.packer = packer
     }
 
-    public func buildURLRequest(url: URL, headers: [String: String], method: HTTPMethod) throws -> URLRequest {
+    public func buildURLRequest(url: URL, headers: [String: String], method: HTTPMethod) -> Result<URLRequest, CommunicatorError> {
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = headers.merging(packer.contentTypeHeaders, uniquingKeysWith: { _, secondValue in
             return secondValue
         })
         request.httpMethod = method.rawValue
-        request.httpBody = try packer.pack()
 
-        return request
+        do {
+            request.httpBody = try packer.pack()
+        } catch {
+            return .failure(.packingError(underlyingError: error))
+        }
+
+        return .success(request)
     }
 }

@@ -8,22 +8,11 @@
 import Foundation
 
 public protocol Communicator {
-    typealias CompletionHandler<ResultType> = (Result<CommunicatorResponse<ResultType>, Error>) -> Void
+    typealias CompletionHandler<ResultType> = (Result<CommunicatorResponse<ResultType>, CommunicatorError>) -> Void
 
     @discardableResult
     func performRequest<E>(
         to endpoint: E,
         completionHandler: @escaping CompletionHandler<E.Unpacker.DataType>
-        ) -> Cancellable? where E: Endpoint
-}
-
-public enum CommunicatorError: Error {
-    case invalidURL
-    case unacceptableStatusCode(ErrorReason)
-    case unsupportedResponse
-
-    public enum ErrorReason {
-        case clientError(code: Int, data: Data)
-        case serverError(code: Int)
-    }
+    ) -> Cancellable? where E: Endpoint
 }
