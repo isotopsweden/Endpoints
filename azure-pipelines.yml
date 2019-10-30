@@ -13,18 +13,20 @@ steps:
 - task: Xcode@5
   displayName: 'Xcode test iOS'
   inputs:
-    actions: 'test'
+    actions: 'clean test'
     scheme: 'Endpoints iOS'
     sdk: 'iphoneos'
     configuration: 'Debug'
     xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
     xcodeVersion: 'default' # Options: 8, 9, 10, default, specifyPath
+    destinationPlatformOption: 'iOS'
+    destinationSimulators: 'iPhone 8,OS=12.4'
     publishJUnitResults: true
 
 - task: Xcode@5
   displayName: 'Xcode test macOS'
   inputs:
-    actions: 'test'
+    actions: 'clean test'
     scheme: 'Endpoints macOS'
     sdk: 'macosx'
     configuration: 'Debug'

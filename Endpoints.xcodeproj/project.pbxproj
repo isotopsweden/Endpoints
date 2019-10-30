@@ -9,9 +9,9 @@
 /* Begin PBXBuildFile section */
 		F4172624236895E40050BB25 /* TestTransporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4172623236895E40050BB25 /* TestTransporter.swift */; };
 		F4172625236895E40050BB25 /* TestTransporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4172623236895E40050BB25 /* TestTransporter.swift */; };
-		F417262A236898010050BB25 /* Endpoints.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4CA9F362281C997000CD820 /* Endpoints.framework */; platformFilter = ios; };
+		F417262A236898010050BB25 /* Endpoints.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4CA9F362281C997000CD820 /* Endpoints.framework */; };
 		F417262B2368980C0050BB25 /* Endpoints.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F45596E8231E7B470065DBDF /* Endpoints.framework */; };
-		F417262C2368983C0050BB25 /* EndpointsTesting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F417260D2368941C0050BB25 /* EndpointsTesting.framework */; };
+		F417262C2368983C0050BB25 /* EndpointsTesting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F417260D2368941C0050BB25 /* EndpointsTesting.framework */; platformFilter = ios; };
 		F417262D236898860050BB25 /* EndpointsTesting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F417261A236894310050BB25 /* EndpointsTesting.framework */; };
 		F438657922B22DCA001E50BE /* CommunicatorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F438657822B22DCA001E50BE /* CommunicatorResponse.swift */; };
 		F438657B22B22DD9001E50BE /* TransportationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = F438657A22B22DD9001E50BE /* TransportationResult.swift */; };
@@ -42,6 +42,8 @@
 		F4CA9F502281D429000CD820 /* APICommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CA9F4F2281D429000CD820 /* APICommunicator.swift */; };
 		F4CA9F522281D557000CD820 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CA9F512281D557000CD820 /* Logger.swift */; };
 		F4CA9F542281D6A9000CD820 /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CA9F532281D6A9000CD820 /* RequestBuilder.swift */; };
+		F4DE16C5236993A8002215F4 /* EndpointsTesting.h in Headers */ = {isa = PBXBuildFile; fileRef = F417260F2368941C0050BB25 /* EndpointsTesting.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F4DE16C6236993C7002215F4 /* EndpointsTesting.h in Headers */ = {isa = PBXBuildFile; fileRef = F417260F2368941C0050BB25 /* EndpointsTesting.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F4DFA7652368BE8B00E7FC6B /* TestFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DFA7642368BE8B00E7FC6B /* TestFixtures.swift */; };
 		F4DFA7662368BE8B00E7FC6B /* TestFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DFA7642368BE8B00E7FC6B /* TestFixtures.swift */; };
 		F4DFA7682368C13300E7FC6B /* TestEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DFA7672368C13300E7FC6B /* TestEndpoint.swift */; };
@@ -284,6 +286,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4DE16C5236993A8002215F4 /* EndpointsTesting.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,6 +294,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4DE16C6236993C7002215F4 /* EndpointsTesting.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,7 +432,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1110;
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 1110;
 				TargetAttributes = {
 					F417260C2368941C0050BB25 = {
 						CreatedOnToolsVersion = 11.1;
@@ -648,6 +652,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
@@ -729,6 +734,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
@@ -959,7 +965,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -1041,7 +1047,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -1362,7 +1368,34 @@
 		F4CA9F2F2281C8CF000CD820 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				ENDPOINTS_VERSION = 1.1.0;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 			};
 			name = Debug;
@@ -1370,7 +1403,32 @@
 		F4CA9F302281C8CF000CD820 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENDPOINTS_VERSION = 1.1.0;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 			};
 			name = Release;
