@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		F4172624236895E40050BB25 /* TestTransporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4172623236895E40050BB25 /* TestTransporter.swift */; };
 		F4172625236895E40050BB25 /* TestTransporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4172623236895E40050BB25 /* TestTransporter.swift */; };
-		F417262A236898010050BB25 /* Endpoints.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4CA9F362281C997000CD820 /* Endpoints.framework */; };
-		F417262B2368980C0050BB25 /* Endpoints.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F45596E8231E7B470065DBDF /* Endpoints.framework */; };
 		F417262C2368983C0050BB25 /* EndpointsTesting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F417260D2368941C0050BB25 /* EndpointsTesting.framework */; platformFilter = ios; };
 		F417262D236898860050BB25 /* EndpointsTesting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F417261A236894310050BB25 /* EndpointsTesting.framework */; };
 		F438657922B22DCA001E50BE /* CommunicatorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F438657822B22DCA001E50BE /* CommunicatorResponse.swift */; };
@@ -56,6 +54,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		F418721823699E5400BFE123 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4CA9F2B2281C8CF000CD820 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F4CA9F352281C997000CD820;
+			remoteInfo = "Endpoints iOS";
+		};
+		F418721A23699E6F00BFE123 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4CA9F2B2281C8CF000CD820 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F45596E7231E7B470065DBDF;
+			remoteInfo = "Endpoints macOS";
+		};
+		F418721C23699EE900BFE123 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4CA9F2B2281C8CF000CD820 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F417260C2368941C0050BB25;
+			remoteInfo = "EndpointsTesting iOS";
+		};
 		F45805F0236884E40088DB58 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F4CA9F2B2281C8CF000CD820 /* Project object */;
@@ -113,7 +132,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F417262A236898010050BB25 /* Endpoints.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,7 +139,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F417262B2368980C0050BB25 /* Endpoints.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,13 +196,6 @@
 			path = EndpointsTesting;
 			sourceTree = "<group>";
 		};
-		F4172629236898010050BB25 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		F45805F5236885150088DB58 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -203,7 +213,6 @@
 				F4CA9F3F2281CA8D000CD820 /* Sources */,
 				F45805F5236885150088DB58 /* Tests */,
 				F4CA9F372281C997000CD820 /* Products */,
-				F4172629236898010050BB25 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -329,6 +338,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				F418721923699E5400BFE123 /* PBXTargetDependency */,
 			);
 			name = "EndpointsTesting iOS";
 			productName = "EndpointsTesting iOS";
@@ -347,6 +357,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				F418721B23699E6F00BFE123 /* PBXTargetDependency */,
 			);
 			name = "EndpointsTesting macOS";
 			productName = "EndpointsTesting macOS";
@@ -394,13 +405,14 @@
 			buildConfigurationList = F4C669422368822100116CEE /* Build configuration list for PBXNativeTarget "EndpointsTests iOS" */;
 			buildPhases = (
 				F4C669342368822000116CEE /* Sources */,
-				F4C669352368822000116CEE /* Frameworks */,
 				F4C669362368822000116CEE /* Resources */,
+				F4C669352368822000116CEE /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				F4C6693F2368822100116CEE /* PBXTargetDependency */,
+				F418721D23699EE900BFE123 /* PBXTargetDependency */,
 			);
 			name = "EndpointsTests iOS";
 			productName = EndpointsTests;
@@ -606,6 +618,22 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		F418721923699E5400BFE123 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F4CA9F352281C997000CD820 /* Endpoints iOS */;
+			targetProxy = F418721823699E5400BFE123 /* PBXContainerItemProxy */;
+		};
+		F418721B23699E6F00BFE123 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F45596E7231E7B470065DBDF /* Endpoints macOS */;
+			targetProxy = F418721A23699E6F00BFE123 /* PBXContainerItemProxy */;
+		};
+		F418721D23699EE900BFE123 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			platformFilter = ios;
+			target = F417260C2368941C0050BB25 /* EndpointsTesting iOS */;
+			targetProxy = F418721C23699EE900BFE123 /* PBXContainerItemProxy */;
+		};
 		F45805F1236884E40088DB58 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F45596E7231E7B470065DBDF /* Endpoints macOS */;
