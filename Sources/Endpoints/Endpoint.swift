@@ -46,8 +46,13 @@ public extension Endpoint {
     }
 
     func asURLRequest() throws -> URLRequest {
-        var urlComponents = URLComponents(url: baseURL.appendingPathComponent(path), resolvingAgainstBaseURL: false)
-        urlComponents?.queryItems = queryItems
+        var urlComponents = URLComponents(
+            url: baseURL.appendingPathComponent(path),
+            resolvingAgainstBaseURL: false)
+
+        if !queryItems.isEmpty {
+            urlComponents?.queryItems = queryItems
+        }
 
         guard let url = urlComponents?.url else { throw CommunicatorError.invalidURL }
 

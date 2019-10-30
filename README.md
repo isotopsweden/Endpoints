@@ -150,15 +150,37 @@ let authTransporter = AuthorizationTransporter(base: URLSession.shared, authenti
 let communicator = APICommunicator(transport: authTransporter)
 ```
 
+### Testing
+You are likely to want to test your code that is built on top of Endpoints. To assist you with this, Endpoints includes the EndpointsTesting framework that provides you with helpful classes when testing. Below is a sample snippet of its usage:
+
+```swift
+import EndpointsTesting
+
+class MyTestCase: XCTestCase {
+    func testMyCode() {
+        // The TestTransporter class can enqueue responses, that are responded with in FIFO-order
+        // (first-in first-out). This allows you to set up a chain of responses.
+        let testTransporter = TestTransporter(responses: [
+            TestTransporter.TestResponse(code: 200, data: MyTestFixture.sampleData)
+        ])
+        
+        // When setting up the Communicator, simply pass in the TestTransporter
+        let communicator = APICommunicator(transport: testTransporter)
+        
+        // Done! Here you would typically put your test code
+    }
+}
+```
+
 ## Installation
 The preferred way of installation is through [Swift Package Manager](https://github.com/apple/swift-package-manager). If you're using Xcode 11, you can add Endpoints as a dependency by simply clicking `File -> Swift Packages -> Add Package Dependency...`. You can also add it manually to your `Package.swift` file:
 
 ```
-.package(url: "https://github.com/isotopsweden/Endpoints", from: "1.0.0")
+.package(url: "https://github.com/isotopsweden/Endpoints", from: "1.1.0")
 ```
 
 Installation through [Carthage](https://github.com/Carthage/Carthage) is also supported:
 
 ```
-github "isotopsweden/Endpoints" ~> 1.0.0
+github "isotopsweden/Endpoints" ~> 1.1.0
 ```
