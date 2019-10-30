@@ -11,10 +11,23 @@ pool:
 
 steps:
 - task: Xcode@5
+  displayName: 'Xcode test iOS'
   inputs:
-    actions: 'build'
+    actions: 'test'
     scheme: 'Endpoints iOS'
     sdk: 'iphoneos'
-    configuration: 'Release'
+    configuration: 'Debug'
     xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
     xcodeVersion: 'default' # Options: 8, 9, 10, default, specifyPath
+    publishJUnitResults: true
+
+- task: Xcode@5
+  displayName: 'Xcode test macOS'
+  inputs:
+    actions: 'test'
+    scheme: 'Endpoints macOS'
+    sdk: 'macosx'
+    configuration: 'Debug'
+    xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
+    xcodeVersion: 'default' # Options: 8, 9, 10, default, specifyPath
+    publishJUnitResults: true
