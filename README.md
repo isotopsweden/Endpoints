@@ -176,11 +176,11 @@ class MyTestCase: XCTestCase {
 The preferred way of installation is through [Swift Package Manager](https://github.com/apple/swift-package-manager). If you're using Xcode 11, you can add Endpoints as a dependency by simply clicking `File -> Swift Packages -> Add Package Dependency...`. You can also add it manually to your `Package.swift` file:
 
 ```
-.package(url: "https://github.com/isotopsweden/Endpoints", from: "1.1.0")
+.package(url: "https://github.com/isotopsweden/Endpoints", from: "1.2.0")
 ```
 
 Installation through [Carthage](https://github.com/Carthage/Carthage) is also supported:
 
 ```
-github "isotopsweden/Endpoints" ~> 1.1.0
+github "isotopsweden/Endpoints" ~> 1.2.0
 ```
