@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		F4172624236895E40050BB25 /* TestTransporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4172623236895E40050BB25 /* TestTransporter.swift */; };
 		F4172625236895E40050BB25 /* TestTransporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4172623236895E40050BB25 /* TestTransporter.swift */; };
-		F417262C2368983C0050BB25 /* EndpointsTesting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F417260D2368941C0050BB25 /* EndpointsTesting.framework */; platformFilter = ios; };
-		F417262D236898860050BB25 /* EndpointsTesting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F417261A236894310050BB25 /* EndpointsTesting.framework */; };
 		F438657922B22DCA001E50BE /* CommunicatorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F438657822B22DCA001E50BE /* CommunicatorResponse.swift */; };
 		F438657B22B22DD9001E50BE /* TransportationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = F438657A22B22DD9001E50BE /* TransportationResult.swift */; };
 		F45596F0231E7C270065DBDF /* Endpoints.h in Headers */ = {isa = PBXBuildFile; fileRef = F4CA9F392281C997000CD820 /* Endpoints.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -27,10 +25,8 @@
 		F45596FB231E7C5F0065DBDF /* TransportationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = F438657A22B22DD9001E50BE /* TransportationResult.swift */; };
 		F45596FC231E7C620065DBDF /* Transporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E24802229951EE004DD390 /* Transporter.swift */; };
 		F45596FD231E7C640065DBDF /* URLSession+Transporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E2480822998A28004DD390 /* URLSession+Transporter.swift */; };
-		F45805EF236884E40088DB58 /* Endpoints.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F45596E8231E7B470065DBDF /* Endpoints.framework */; };
 		F45805F62368853C0088DB58 /* EndpointsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C6693A2368822000116CEE /* EndpointsTests.swift */; };
 		F4C6693B2368822000116CEE /* EndpointsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C6693A2368822000116CEE /* EndpointsTests.swift */; };
-		F4C6693D2368822100116CEE /* Endpoints.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4CA9F362281C997000CD820 /* Endpoints.framework */; platformFilter = ios; };
 		F4CA9F3B2281C997000CD820 /* Endpoints.h in Headers */ = {isa = PBXBuildFile; fileRef = F4CA9F392281C997000CD820 /* Endpoints.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F4CA9F412281CDA0000CD820 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CA9F402281CDA0000CD820 /* Endpoint.swift */; };
 		F4CA9F432281CE52000CD820 /* DataPacker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CA9F422281CE52000CD820 /* DataPacker.swift */; };
@@ -54,6 +50,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		F4048C4C236ABF6200DBC035 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4CA9F2B2281C8CF000CD820 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F4172619236894310050BB25;
+			remoteInfo = "EndpointsTesting macOS";
+		};
 		F418721823699E5400BFE123 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F4CA9F2B2281C8CF000CD820 /* Project object */;
@@ -153,8 +156,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F45805EF236884E40088DB58 /* Endpoints.framework in Frameworks */,
-				F417262D236898860050BB25 /* EndpointsTesting.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -162,8 +163,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4C6693D2368822100116CEE /* Endpoints.framework in Frameworks */,
-				F417262C2368983C0050BB25 /* EndpointsTesting.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -394,6 +393,7 @@
 			);
 			dependencies = (
 				F45805F1236884E40088DB58 /* PBXTargetDependency */,
+				F4048C4D236ABF6200DBC035 /* PBXTargetDependency */,
 			);
 			name = "EndpointsTests macOS";
 			productName = "EndpointsTests macOS";
@@ -405,8 +405,8 @@
 			buildConfigurationList = F4C669422368822100116CEE /* Build configuration list for PBXNativeTarget "EndpointsTests iOS" */;
 			buildPhases = (
 				F4C669342368822000116CEE /* Sources */,
-				F4C669362368822000116CEE /* Resources */,
 				F4C669352368822000116CEE /* Frameworks */,
+				F4C669362368822000116CEE /* Resources */,
 			);
 			buildRules = (
 			);
@@ -618,6 +618,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		F4048C4D236ABF6200DBC035 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F4172619236894310050BB25 /* EndpointsTesting macOS */;
+			targetProxy = F4048C4C236ABF6200DBC035 /* PBXContainerItemProxy */;
+		};
 		F418721923699E5400BFE123 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F4CA9F352281C997000CD820 /* Endpoints iOS */;
@@ -686,7 +691,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 3GN395FUH4;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -768,7 +773,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 3GN395FUH4;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -844,7 +849,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 3GN395FUH4;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -925,7 +930,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 3GN395FUH4;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1000,7 +1005,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 3GN395FUH4;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1082,7 +1087,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 3GN395FUH4;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1154,7 +1159,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 3GN395FUH4;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1226,7 +1231,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 3GN395FUH4;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1290,7 +1295,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 3GN395FUH4;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1362,7 +1367,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 3GN395FUH4;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1498,7 +1503,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 3GN395FUH4;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1578,7 +1583,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 3GN395FUH4;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
