@@ -18,7 +18,7 @@ steps:
     sdk: 'iphoneos'
     configuration: 'Debug'
     xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
-    xcodeVersion: 'default' # Options: 8, 9, 10, default, specifyPath
+    xcodeVersion: '10' # Options: 8, 9, 10, default, specifyPath
     destinationPlatformOption: 'iOS'
     destinationSimulators: 'iPhone 8,OS=12.4'
     publishJUnitResults: true
