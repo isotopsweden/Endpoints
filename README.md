@@ -15,7 +15,7 @@ struct MyEndpoint: Endpoint {
 }
 
 let endpoint = MyEndpoint()
-let communicator: Communicator = APICommunicator()
+let communicator = Communicator()
 communicator.performRequest(to: endpoint) { result in
     switch result {
     case .success(let response):
@@ -118,7 +118,7 @@ extension Endpoint {
 ```
 
 ### Transporters
-The `APICommunicator` class relies on the `Transporter` protocol to do the heavy lifting. This is a simple procotol containing a single function:
+The `Communicator` class relies on the `Transporter` protocol to do the heavy lifting. This is a simple procotol containing a single function:
 
 ```swift
 public protocol Transporter {
@@ -147,7 +147,7 @@ class AuthorizationTransporter: Transporter {
 }
 
 let authTransporter = AuthorizationTransporter(base: URLSession.shared, authenticationDetails: "...")
-let communicator = APICommunicator(transport: authTransporter)
+let communicator = Communicator(transporter: authTransporter)
 ```
 
 ### Testing
@@ -165,7 +165,7 @@ class MyTestCase: XCTestCase {
         ])
         
         // When setting up the Communicator, simply pass in the TestTransporter
-        let communicator = APICommunicator(transport: testTransporter)
+        let communicator = Communicator(transporter: testTransporter)
         
         // Done! Here you would typically put your test code
     }
