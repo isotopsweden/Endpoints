@@ -25,6 +25,8 @@
 		F45596FC231E7C620065DBDF /* Transporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E24802229951EE004DD390 /* Transporter.swift */; };
 		F45596FD231E7C640065DBDF /* URLSession+Transporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E2480822998A28004DD390 /* URLSession+Transporter.swift */; };
 		F45805F62368853C0088DB58 /* EndpointsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C6693A2368822000116CEE /* EndpointsTests.swift */; };
+		F49C1F8D236AE78E00895600 /* XCTestCase+assertResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49C1F8C236AE78E00895600 /* XCTestCase+assertResult.swift */; };
+		F49C1F8E236AE78E00895600 /* XCTestCase+assertResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49C1F8C236AE78E00895600 /* XCTestCase+assertResult.swift */; };
 		F4C6693223686E1E00116CEE /* CommunicatorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C6693123686E1E00116CEE /* CommunicatorError.swift */; };
 		F4C6693323686E1E00116CEE /* CommunicatorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C6693123686E1E00116CEE /* CommunicatorError.swift */; };
 		F4C6693B2368822000116CEE /* EndpointsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C6693A2368822000116CEE /* EndpointsTests.swift */; };
@@ -108,6 +110,7 @@
 		F45596EB231E7B470065DBDF /* Info-macOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-macOS.plist"; sourceTree = "<group>"; };
 		F45805EA236884E40088DB58 /* EndpointsTests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "EndpointsTests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F45805F7236885690088DB58 /* Info-macOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-macOS.plist"; sourceTree = "<group>"; };
+		F49C1F8C236AE78E00895600 /* XCTestCase+assertResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+assertResult.swift"; sourceTree = "<group>"; };
 		F4C6693123686E1E00116CEE /* CommunicatorError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicatorError.swift; sourceTree = "<group>"; };
 		F4C669382368822000116CEE /* EndpointsTests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "EndpointsTests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4C6693A2368822000116CEE /* EndpointsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointsTests.swift; sourceTree = "<group>"; };
@@ -247,6 +250,7 @@
 			isa = PBXGroup;
 			children = (
 				F4DFA76B2368C52700E7FC6B /* CommunicatorError.ErrorReason+Equatable.swift */,
+				F49C1F8C236AE78E00895600 /* XCTestCase+assertResult.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -579,6 +583,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F45805F62368853C0088DB58 /* EndpointsTests.swift in Sources */,
+				F49C1F8E236AE78E00895600 /* XCTestCase+assertResult.swift in Sources */,
 				F4DFA7662368BE8B00E7FC6B /* TestFixtures.swift in Sources */,
 				F4DFA76D2368C52700E7FC6B /* CommunicatorError.ErrorReason+Equatable.swift in Sources */,
 				F4DFA7692368C13300E7FC6B /* TestEndpoint.swift in Sources */,
@@ -590,6 +595,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4C6693B2368822000116CEE /* EndpointsTests.swift in Sources */,
+				F49C1F8D236AE78E00895600 /* XCTestCase+assertResult.swift in Sources */,
 				F4DFA7652368BE8B00E7FC6B /* TestFixtures.swift in Sources */,
 				F4DFA76C2368C52700E7FC6B /* CommunicatorError.ErrorReason+Equatable.swift in Sources */,
 				F4DFA7682368C13300E7FC6B /* TestEndpoint.swift in Sources */,
