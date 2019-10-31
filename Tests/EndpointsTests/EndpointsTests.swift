@@ -31,7 +31,7 @@ class EndpointsTests: XCTestCase {
             TestTransporter.TestResponse(code: 200, data: TestFixtures.simpleMessageData)
         ])
 
-        let communicator = APICommunicator(transporter: testTransporter)
+        let communicator = Communicator(transporter: testTransporter)
 
         let communicatorCompletionExpectation = XCTestExpectation(description: "Communicator completion expectation")
         var expectedResult: Result<CommunicatorResponse<TestMessage>, CommunicatorError>?
@@ -60,7 +60,7 @@ class EndpointsTests: XCTestCase {
             TestTransporter.TestResponse(code: 401, data: Data())
         ])
 
-        let communicator = APICommunicator(transporter: testTransporter)
+        let communicator = Communicator(transporter: testTransporter)
         let communicatorCompletionExpectation = XCTestExpectation(description: "Communicator completion expectation")
         var expectedResult: Result<CommunicatorResponse<TestMessage>, CommunicatorError>?
         communicator.performRequest(to: TestEndpoint()) { result in
