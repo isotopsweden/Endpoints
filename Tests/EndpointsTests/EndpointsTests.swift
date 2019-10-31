@@ -42,17 +42,10 @@ class EndpointsTests: XCTestCase {
 
         wait(for: [communicatorCompletionExpectation], timeout: 1.0)
 
-        switch expectedResult {
-        case .success(let response)?:
-            XCTAssertEqual(response.code, 200)
-            XCTAssertEqual(response.body.message, "Hi!")
-
-        case .failure(let error)?:
-            XCTFail("Expected unwrapped result to be a success, but was failure: \(error)")
-
-        case .none:
-            XCTFail("Expected expectedResult to be non-optional")
-        }
+        assertSuccess(expectedResult, predicate: { value in
+            XCTAssertEqual(value.code, 200)
+            XCTAssertEqual(value.body.message, "Hi!")
+        })
     }
 
     func testCommunicatorRespondsWithClientError() throws {
@@ -70,20 +63,13 @@ class EndpointsTests: XCTestCase {
 
         wait(for: [communicatorCompletionExpectation], timeout: 1.0)
 
-        switch expectedResult {
-        case .success(let response)?:
-            XCTFail("Unexpectedly found response when testing for error handling: \(response)")
-
-        case .failure(let error)?:
+        assertFailure(expectedResult, predicate: { error in
             guard case .unacceptableStatusCode(let communicatorErrorReason) = error else {
                 XCTFail("Expected received error to be a CommunicatorError.unacceptableStatusCode")
                 return
             }
 
             XCTAssertEqual(communicatorErrorReason, CommunicatorError.ErrorReason.clientError(code: 401, data: Data()))
-
-        case .none:
-            XCTFail("Expected expectedResult to be non-optional")
-        }
+        })
     }
 }
