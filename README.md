@@ -122,7 +122,7 @@ The `Communicator` class relies on the `Transporter` protocol to do the heavy li
 
 ```swift
 public protocol Transporter {
-    func send(_ request: URLRequest, completionHandler: @escaping (Result<TransportationResult, Error>) -> Void) -> Cancellable
+    func send(_ request: URLRequest, completionHandler: @escaping (Result<TransportationResult, CommunicatorError>) -> Void) -> Cancellable
 }
 ```
 
@@ -138,7 +138,7 @@ class AuthorizationTransporter: Transporter {
         self.authenticationDetails = authenticationDetails
     }
 
-    func send(_ request: URLRequest, completionHandler: @escaping (Result<TransportationResult, Error>) -> Void) -> Cancellable {
+    func send(_ request: URLRequest, completionHandler: @escaping (Result<TransportationResult, CommunicatorError>) -> Void) -> Cancellable {
         var modifiedRequest = request
         modifiedRequest.addValue("Basic \(authenticationDetails)", forHTTPHeaderField: "Authorization")
 
@@ -176,11 +176,11 @@ class MyTestCase: XCTestCase {
 The preferred way of installation is through [Swift Package Manager](https://github.com/apple/swift-package-manager). If you're using Xcode 11, you can add Endpoints as a dependency by simply clicking `File -> Swift Packages -> Add Package Dependency...`. You can also add it manually to your `Package.swift` file:
 
 ```
-.package(url: "https://github.com/isotopsweden/Endpoints", from: "1.2.0")
+.package(url: "https://github.com/isotopsweden/Endpoints", from: "2.0.0")
 ```
 
 Installation through [Carthage](https://github.com/Carthage/Carthage) is also supported:
 
 ```
-github "isotopsweden/Endpoints" ~> 1.2.0
+github "isotopsweden/Endpoints" ~> 2.0.0
 ```
