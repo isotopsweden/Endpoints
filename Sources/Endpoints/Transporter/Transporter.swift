@@ -8,5 +8,5 @@
 import Foundation
 
 public protocol Transporter {
-    func send(_ request: URLRequest, completionHandler: @escaping (Result<TransportationResult, Error>) -> Void) -> Cancellable
+    func send(_ request: URLRequest, completionHandler: @escaping (Result<TransporterResponse, CommunicatorError>) -> Void) -> Cancellable
 }

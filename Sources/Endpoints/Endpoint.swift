@@ -47,7 +47,7 @@ public extension Endpoint {
         return EmptyUnpacker()
     }
 
-    func asURLRequest() throws -> URLRequest {
+    func asURLRequest() -> Result<URLRequest, CommunicatorError> {
         var urlComponents = URLComponents(
             url: baseURL.appendingPathComponent(path),
             resolvingAgainstBaseURL: false)
@@ -56,9 +56,11 @@ public extension Endpoint {
             urlComponents?.queryItems = queryItems
         }
 
-        guard let url = urlComponents?.url else { throw CommunicatorError.invalidURL }
+        guard let url = urlComponents?.url else {
+            return .failure(.invalidURL)
+        }
 
         let requestBuilder = RequestBuilder(packer: packer)
-        return try requestBuilder.buildURLRequest(url: url, headers: headers, method: method)
+        return requestBuilder.buildURLRequest(url: url, headers: headers, method: method)
     }
 }

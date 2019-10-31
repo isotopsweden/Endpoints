@@ -16,7 +16,7 @@ public class TestTransporter: Transporter {
         self.enqueuedResponses = responses
     }
 
-    public func send(_ request: URLRequest, completionHandler: @escaping (Result<TransportationResult, Error>) -> Void) -> Cancellable {
+    public func send(_ request: URLRequest, completionHandler: @escaping (Result<TransporterResponse, CommunicatorError>) -> Void) -> Cancellable {
         guard let requestURL = request.url else {
             completionHandler(.failure(CommunicatorError.invalidURL))
             return TestCancellable()
@@ -29,7 +29,7 @@ public class TestTransporter: Transporter {
             httpVersion: "HTTP/1.1",
             headerFields: nil)!
 
-        let result = TransportationResult(response: urlResponse, data: testResponse.data)
+        let result = TransporterResponse(response: urlResponse, data: testResponse.data)
         completionHandler(.success(result))
 
         return TestCancellable()

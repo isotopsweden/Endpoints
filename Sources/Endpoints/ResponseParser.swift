@@ -20,22 +20,23 @@ public struct ResponseParser<Unpacker: DataUnpacker> {
         self.unpacker = unpacker
     }
 
-    public func parseResponse(response: HTTPURLResponse, data: Data) throws -> CommunicatorResponse<Unpacker.DataType> {
+    public func parseResponse(response: HTTPURLResponse, data: Data) -> Result<CommunicatorResponse<Unpacker.DataType>, CommunicatorError> {
         switch response.statusCode {
         case HTTPURLResponse.successfulStatusCode:
-            let decodedData = try unpacker.unpack(data)
-            let response = CommunicatorResponse(
-                body: decodedData,
-                code: response.statusCode,
-                headers: response.allHeaderFields)
+            let unpackerResult = Result {
+                CommunicatorResponse(
+                    body: try unpacker.unpack(data),
+                    code: response.statusCode,
+                    headers: response.allHeaderFields)
+            }
 
-            return response
+            return unpackerResult.mapError(CommunicatorError.unpackingError)
 
         case 400..<500:
-            throw CommunicatorError.unacceptableStatusCode(.clientError(code: response.statusCode, data: data))
+            return .failure(.unacceptableStatusCode(.clientError(code: response.statusCode, data: data)))
 
         default:
-            throw CommunicatorError.unacceptableStatusCode(.serverError(code: response.statusCode))
+            return .failure(.unacceptableStatusCode(.serverError(code: response.statusCode)))
         }
     }
 }

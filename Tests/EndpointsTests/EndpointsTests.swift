@@ -17,10 +17,13 @@ struct TestMessage: Decodable {
 class EndpointsTests: XCTestCase {
     func testEndpointCreatesValidURLRequest() throws {
         let endpoint = TestEndpoint()
-        let request = try endpoint.asURLRequest()
-
-        XCTAssertEqual(request.url?.absoluteString, "https://example.com/message")
-        XCTAssertEqual(request.httpMethod, "GET")
+        switch endpoint.asURLRequest() {
+        case .success(let request):
+            XCTAssertEqual(request.url?.absoluteString, "https://example.com/message")
+            XCTAssertEqual(request.httpMethod, "GET")
+        case .failure(let error):
+            XCTFail("Expected URLRequest created by Endpoint to succeed, but was error: \(error)")
+        }
     }
 
     func testCommunicatorCompletesSuccessfulRequest() throws {
@@ -28,10 +31,10 @@ class EndpointsTests: XCTestCase {
             TestTransporter.TestResponse(code: 200, data: TestFixtures.simpleMessageData)
         ])
 
-        let communicator = APICommunicator(transport: testTransporter)
+        let communicator = APICommunicator(transporter: testTransporter)
 
         let communicatorCompletionExpectation = XCTestExpectation(description: "Communicator completion expectation")
-        var expectedResult: Result<CommunicatorResponse<TestMessage>, Error>?
+        var expectedResult: Result<CommunicatorResponse<TestMessage>, CommunicatorError>?
         communicator.performRequest(to: TestEndpoint()) { result in
             expectedResult = result
             communicatorCompletionExpectation.fulfill()
@@ -57,9 +60,9 @@ class EndpointsTests: XCTestCase {
             TestTransporter.TestResponse(code: 401, data: Data())
         ])
 
-        let communicator = APICommunicator(transport: testTransporter)
+        let communicator = APICommunicator(transporter: testTransporter)
         let communicatorCompletionExpectation = XCTestExpectation(description: "Communicator completion expectation")
-        var expectedResult: Result<CommunicatorResponse<TestMessage>, Error>?
+        var expectedResult: Result<CommunicatorResponse<TestMessage>, CommunicatorError>?
         communicator.performRequest(to: TestEndpoint()) { result in
             expectedResult = result
             communicatorCompletionExpectation.fulfill()
@@ -72,11 +75,9 @@ class EndpointsTests: XCTestCase {
             XCTFail("Unexpectedly found response when testing for error handling: \(response)")
 
         case .failure(let error)?:
-            guard let communicatorError = error as? CommunicatorError,
-                case .unacceptableStatusCode(let communicatorErrorReason) = communicatorError
-                else {
-                    XCTFail("Expected received error to be a CommunicatorError.unacceptableStatusCode")
-                    return
+            guard case .unacceptableStatusCode(let communicatorErrorReason) = error else {
+                XCTFail("Expected received error to be a CommunicatorError.unacceptableStatusCode")
+                return
             }
 
             XCTAssertEqual(communicatorErrorReason, CommunicatorError.ErrorReason.clientError(code: 401, data: Data()))

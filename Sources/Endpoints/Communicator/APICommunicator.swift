@@ -8,13 +8,13 @@
 import Foundation
 
 public final class APICommunicator: Communicator {
-    private let transport: Transporter
+    private let transporter: Transporter
     private let callbackQueue: DispatchQueue
 
     private let logger: Logger?
 
-    public init(transport: Transporter = URLSession.shared, callbackQueue: DispatchQueue = .main, logger: Logger? = nil) {
-        self.transport = transport
+    public init(transporter: Transporter = URLSession.shared, callbackQueue: DispatchQueue = .main, logger: Logger? = nil) {
+        self.transporter = transporter
         self.callbackQueue = callbackQueue
         self.logger = logger
     }
@@ -23,30 +23,30 @@ public final class APICommunicator: Communicator {
     public func performRequest<E>(to endpoint: E, completionHandler: @escaping CompletionHandler<E.Unpacker.DataType>) -> Cancellable? where E: Endpoint {
         let request: URLRequest
 
-        do {
-            request = try endpoint.asURLRequest()
-        } catch {
+        switch endpoint.asURLRequest() {
+        case .success(let createdRequest):
+            request = createdRequest
+        case .failure(let error):
             log(error: error)
-
             completionHandler(.failure(error))
             return nil
         }
 
         log(request: request, method: endpoint.method)
 
-        return transport.send(request) { [weak self] result in
-            do {
-                let transportationResult = try result.get()
+        return transporter.send(request) { [weak self] result in
+            let responseParseResult = result.flatMap { transporterResponse -> Result<CommunicatorResponse<E.Unpacker.DataType>, CommunicatorError> in
                 let parser = ResponseParser(unpacker: endpoint.unpacker)
-                let response = try parser.parseResponse(response: transportationResult.response,
-                                                        data: transportationResult.data)
+                return parser.parseResponse(response: transporterResponse.urlResponse,
+                                            data: transporterResponse.data)
+            }
 
-                self?.callbackQueue.async {
-                    completionHandler(.success(response))
-                }
-            } catch {
+            if case .failure(let error) = responseParseResult {
                 self?.log(error: error, url: request.url)
-                self?.callbackQueue.async { completionHandler(.failure(error)) }
+            }
+
+            self?.callbackQueue.async {
+                completionHandler(responseParseResult)
             }
         }
     }
