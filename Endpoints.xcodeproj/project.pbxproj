@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F4134F5B237351F7007A8CBA /* TestMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4134F55237351A7007A8CBA /* TestMessage.swift */; };
+		F4134F5C237351F8007A8CBA /* TestMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4134F55237351A7007A8CBA /* TestMessage.swift */; };
 		F4172624236895E40050BB25 /* TestTransporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4172623236895E40050BB25 /* TestTransporter.swift */; };
 		F4172625236895E40050BB25 /* TestTransporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4172623236895E40050BB25 /* TestTransporter.swift */; };
 		F438657922B22DCA001E50BE /* CommunicatorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F438657822B22DCA001E50BE /* CommunicatorResponse.swift */; };
@@ -97,6 +99,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F4134F55237351A7007A8CBA /* TestMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestMessage.swift; sourceTree = "<group>"; };
 		F417260D2368941C0050BB25 /* EndpointsTesting.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EndpointsTesting.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F417260F2368941C0050BB25 /* EndpointsTesting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EndpointsTesting.h; sourceTree = "<group>"; };
 		F41726102368941C0050BB25 /* EndpointsTesting-Info-iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "EndpointsTesting-Info-iOS.plist"; sourceTree = "<group>"; };
@@ -179,6 +182,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F4134F5423735199007A8CBA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F4134F55237351A7007A8CBA /* TestMessage.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		F4172607236891120050BB25 /* EndpointsTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -186,6 +197,7 @@
 				F4DFA7672368C13300E7FC6B /* TestEndpoint.swift */,
 				F4DFA7642368BE8B00E7FC6B /* TestFixtures.swift */,
 				F4DFA76A2368C51100E7FC6B /* Helpers */,
+				F4134F5423735199007A8CBA /* Models */,
 			);
 			path = EndpointsTests;
 			sourceTree = "<group>";
@@ -587,6 +599,7 @@
 				F4DFA7662368BE8B00E7FC6B /* TestFixtures.swift in Sources */,
 				F4DFA76D2368C52700E7FC6B /* CommunicatorError.ErrorReason+Equatable.swift in Sources */,
 				F4DFA7692368C13300E7FC6B /* TestEndpoint.swift in Sources */,
+				F4134F5B237351F7007A8CBA /* TestMessage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -599,6 +612,7 @@
 				F4DFA7652368BE8B00E7FC6B /* TestFixtures.swift in Sources */,
 				F4DFA76C2368C52700E7FC6B /* CommunicatorError.ErrorReason+Equatable.swift in Sources */,
 				F4DFA7682368C13300E7FC6B /* TestEndpoint.swift in Sources */,
+				F4134F5C237351F8007A8CBA /* TestMessage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

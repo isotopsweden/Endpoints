@@ -8,5 +8,19 @@
 import Foundation
 
 public protocol Transporter {
-    func send(_ request: URLRequest, completionHandler: @escaping (Result<TransporterResponse, CommunicatorError>) -> Void) -> Cancellable
+    /// Sends the given `URLRequest` using this `Transporter` and calls `completionHandler` upon completion.
+    ///
+    /// Note: It is expected that this function returns `.success` if the server responds, regardless of the HTTP
+    /// status code returned by the server. This matches the behavior of `URLSession.dataTask`.
+    ///
+    /// - Parameters:
+    ///   - request: an instance of `URLRequest` describing the request.
+    ///   - completionHandler: called upon completion with either `.success` or `.failure` depending on outcome.
+    ///
+    /// - Returns:
+    ///   - `Cancellable` token used for cancelling the request.
+    func send(
+        _ request: URLRequest,
+        completionHandler: @escaping (Result<TransporterResponse, CommunicatorError>) -> Void
+    ) -> Cancellable
 }

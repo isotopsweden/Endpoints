@@ -10,10 +10,6 @@ import EndpointsTesting
 
 @testable import Endpoints
 
-struct TestMessage: Decodable {
-    let message: String
-}
-
 class EndpointsTests: XCTestCase {
     func testEndpointCreatesValidURLRequest() throws {
         let endpoint = TestEndpoint()
@@ -28,7 +24,7 @@ class EndpointsTests: XCTestCase {
 
     func testCommunicatorCompletesSuccessfulRequest() throws {
         let testTransporter = TestTransporter(responses: [
-            TestTransporter.TestResponse(code: 200, data: TestFixtures.simpleMessageData)
+            .success(.init(code: 200, data: TestFixtures.simpleMessageData))
         ])
 
         let communicator = Communicator(transporter: testTransporter)
@@ -50,7 +46,7 @@ class EndpointsTests: XCTestCase {
 
     func testCommunicatorRespondsWithClientError() throws {
         let testTransporter = TestTransporter(responses: [
-            TestTransporter.TestResponse(code: 401, data: Data())
+            .success(.init(code: 401, data: Data()))
         ])
 
         let communicator = Communicator(transporter: testTransporter)
@@ -69,7 +65,7 @@ class EndpointsTests: XCTestCase {
                 return
             }
 
-            XCTAssertEqual(communicatorErrorReason, CommunicatorError.ErrorReason.clientError(code: 401, data: Data()))
+            XCTAssertEqual(communicatorErrorReason, .clientError(code: 401, data: Data()))
         })
     }
 }

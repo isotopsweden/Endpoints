@@ -151,7 +151,7 @@ let communicator = Communicator(transporter: authTransporter)
 ```
 
 ### Testing
-You are likely to want to test your code that is built on top of Endpoints. To assist you with this, Endpoints includes the EndpointsTesting framework that provides you with helpful classes when testing. Below is a sample snippet of its usage:
+You are likely to want to test your code that is built on top of Endpoints. To assist you with this, Endpoints includes the EndpointsTesting package that provides you with helpful classes when testing. Below is a sample snippet of its usage:
 
 ```swift
 import EndpointsTesting
@@ -161,12 +161,12 @@ class MyTestCase: XCTestCase {
         // The TestTransporter class can enqueue responses, that are responded with in FIFO-order
         // (first-in first-out). This allows you to set up a chain of responses.
         let testTransporter = TestTransporter(responses: [
-            TestTransporter.TestResponse(code: 200, data: MyTestFixture.sampleData)
+            .success(.init(code: 200, data: MyTestFixture.sampleData))
         ])
-        
+
         // When setting up the Communicator, simply pass in the TestTransporter
         let communicator = Communicator(transporter: testTransporter)
-        
+
         // Done! Here you would typically put your test code
     }
 }
