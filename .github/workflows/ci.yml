@@ -1,0 +1,33 @@
+name: CI
+
+on: [push]
+
+env:
+  DEVELOPER_DIR: /Applications/Xcode_11.1.app
+
+jobs:
+  iOS:
+    name: build & test (iOS)
+    runs-on: macOS-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Build for testing
+        run: |
+          set -o pipefail && xcodebuild build-for-testing -scheme "Endpoints iOS" -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 8' | xcpretty -c
+      - name: Test
+        run: |
+          set -o pipefail && xcodebuild test-without-building -scheme "Endpoints iOS" -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 8' | xcpretty -c
+
+  macOS:
+    name: build & test (macOS)
+    runs-on: [macOS-latest]
+    
+    steps:
+      - uses: actions/checkout@v1
+      - name: Build for testing
+        run: |
+          set -o pipefail && xcodebuild build-for-testing -scheme "Endpoints macOS" -configuration Debug -sdk macosx | xcpretty -c
+      - name: Test
+        run: |
+          set -o pipefail && xcodebuild test-without-building -scheme "Endpoints macOS" -configuration Debug -sdk macosx | xcpretty -c
