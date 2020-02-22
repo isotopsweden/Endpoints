@@ -11,7 +11,7 @@ import EndpointsTesting
 @testable import Endpoints
 
 class EndpointsTests: XCTestCase {
-    private let endpoint = Endpoint<TestMessage>(
+    private let endpoint = Endpoint<TestMessage, Void>(
         baseURL: URL(string: "https://example.com")!,
         path: "message",
         method: .get,
@@ -38,7 +38,7 @@ class EndpointsTests: XCTestCase {
         let communicator = Communicator(transporter: testTransporter)
 
         let communicatorCompletionExpectation = XCTestExpectation(description: "Communicator completion expectation")
-        var expectedResult: Result<CommunicatorResponse<TestMessage>, CommunicatorError>?
+        var expectedResult: Result<CommunicatorResponse<TestMessage>, CommunicatorError<Void>>?
         communicator.performRequest(to: endpoint) { result in
             expectedResult = result
             communicatorCompletionExpectation.fulfill()
@@ -59,7 +59,7 @@ class EndpointsTests: XCTestCase {
 
         let communicator = Communicator(transporter: testTransporter)
         let communicatorCompletionExpectation = XCTestExpectation(description: "Communicator completion expectation")
-        var expectedResult: Result<CommunicatorResponse<TestMessage>, CommunicatorError>?
+        var expectedResult: Result<CommunicatorResponse<TestMessage>, CommunicatorError<Void>>?
         communicator.performRequest(to: endpoint) { result in
             expectedResult = result
             communicatorCompletionExpectation.fulfill()
@@ -73,7 +73,51 @@ class EndpointsTests: XCTestCase {
                 return
             }
 
-            XCTAssertEqual(communicatorErrorReason, .clientError(code: 401, data: Data()))
+            if case .clientError = communicatorErrorReason {} else {
+                XCTFail("Expected error reason to be .clientError")
+            }
+        })
+    }
+
+    func testCommunicatorRespondsWithTypedClientError() throws {
+        let errorEndpoint = Endpoint<Void, TestMessage>(
+            baseURL: URL(string: "https://example.com")!,
+            path: "message",
+            method: .get,
+            errorUnpacker: { data in
+                let decoder = JSONDecoder()
+                return try decoder.decode(TestMessage.self, from: data)
+        })
+
+        let encoder = JSONEncoder()
+        let responseData = try encoder.encode(TestMessage(message: "Authentication"))
+
+        let testTransporter = TestTransporter(responses: [
+            .success(.init(code: 401, data: responseData))
+        ])
+
+        let communicator = Communicator(transporter: testTransporter)
+        let communicatorCompletionExpectation = XCTestExpectation(description: "Communicator completion expectation")
+        var expectedResult: Result<CommunicatorResponse<Void>, CommunicatorError<TestMessage>>?
+        communicator.performRequest(to: errorEndpoint) { result in
+            expectedResult = result
+            communicatorCompletionExpectation.fulfill()
+        }
+
+        wait(for: [communicatorCompletionExpectation], timeout: 1.0)
+
+        assertFailure(expectedResult, predicate: { error in
+            guard case .unacceptableStatusCode(let reason) = error else {
+                XCTFail("Expected received error to be a CommunicatorError.unacceptableStatusCode")
+                return
+            }
+
+            if case .clientError(let code, let message) = reason {
+                XCTAssertEqual(code, 401)
+                XCTAssertEqual(message.message, "Authentication")
+            } else {
+                XCTFail("Expected error reason to be .clientError")
+            }
         })
     }
 }

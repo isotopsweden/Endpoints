@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum CommunicatorError: Error {
+public enum CommunicatorError<ErrorResponse>: Error {
     /// An error indicating that the `Endpoint`'s URL is invalid.
     case invalidURL
 
@@ -29,8 +29,8 @@ public enum CommunicatorError: Error {
 
     public enum ErrorReason {
         /// The HTTP response code received from the server likely is a client error. In practice this means HTTP 400 - 499.
-        /// If the server included response data, that is included in the associated `data` value.
-        case clientError(code: Int, data: Data)
+        /// If the server included response data, that is included in the associated `response` value.
+        case clientError(code: Int, response: ErrorResponse)
 
         /// The HTTP response code received from the server likely is a server error. In practice this means HTTP 500-ish codes.
         case serverError(code: Int)

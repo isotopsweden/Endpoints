@@ -7,9 +7,10 @@
 
 import Foundation
 
-public struct Endpoint<Response> {
+public struct Endpoint<Response, ErrorResponse> {
     public typealias Packer = () throws -> Data
     public typealias Unpacker = (Data) throws -> Response
+    public typealias ErrorUnpacker = (Data) throws -> ErrorResponse
 
     public var baseURL: URL
     public var path: String
@@ -20,10 +21,32 @@ public struct Endpoint<Response> {
 
     public var packer: Packer? = nil
     public var unpacker: Unpacker
+    public var errorUnpacker: ErrorUnpacker
 }
 
 // MARK: - Convenience init
 public extension Endpoint where Response == Void {
+    init(
+        baseURL: URL,
+        path: String,
+        method: HTTPMethod,
+        queryItems: [URLQueryItem] = [],
+        headers: [String: String] = [:],
+        packer: Packer? = nil,
+        errorUnpacker: @escaping ErrorUnpacker
+    ) {
+        self.baseURL = baseURL
+        self.path = path
+        self.method = method
+        self.queryItems = queryItems
+        self.headers = headers
+        self.packer = packer
+        self.unpacker = { _ in () }
+        self.errorUnpacker = errorUnpacker
+    }
+}
+
+public extension Endpoint where Response == Void, ErrorResponse == Void {
     init(
         baseURL: URL,
         path: String,
@@ -39,12 +62,34 @@ public extension Endpoint where Response == Void {
         self.headers = headers
         self.packer = packer
         self.unpacker = { _ in () }
+        self.errorUnpacker = { _ in () }
+    }
+}
+
+public extension Endpoint where ErrorResponse == Void {
+    init(
+        baseURL: URL,
+        path: String,
+        method: HTTPMethod,
+        queryItems: [URLQueryItem] = [],
+        headers: [String: String] = [:],
+        packer: Packer? = nil,
+        unpacker: @escaping Unpacker
+    ) {
+        self.baseURL = baseURL
+        self.path = path
+        self.method = method
+        self.queryItems = queryItems
+        self.headers = headers
+        self.packer = packer
+        self.unpacker = unpacker
+        self.errorUnpacker = { _ in () }
     }
 }
 
 // MARK: - asURLRequest
 public extension Endpoint {
-    func asURLRequest() -> Result<URLRequest, CommunicatorError> {
+    func asURLRequest() -> Result<URLRequest, CommunicatorError<ErrorResponse>> {
         var urlComponents = URLComponents(
             url: baseURL.appendingPathComponent(path),
             resolvingAgainstBaseURL: false)

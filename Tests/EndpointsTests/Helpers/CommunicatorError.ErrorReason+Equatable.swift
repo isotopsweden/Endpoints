@@ -9,10 +9,10 @@ import Foundation
 
 @testable import Endpoints
 
-extension CommunicatorError.ErrorReason: Equatable {
+extension CommunicatorError.ErrorReason: Equatable where ErrorResponse: Equatable {
     public static func == (lhs: CommunicatorError.ErrorReason, rhs: CommunicatorError.ErrorReason) -> Bool {
         switch (lhs, rhs) {
-        case (.clientError(let lhsCode, let lhsData), .clientError(code: let rhsCode, data: let rhsData)):
+        case (.clientError(let lhsCode, let lhsData), .clientError(let rhsCode, let rhsData)):
             return lhsCode == rhsCode && lhsData == rhsData
 
         case (.serverError(let lhsCode), .serverError(code: let rhsCode)):

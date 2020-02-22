@@ -7,9 +7,32 @@
 
 import Foundation
 
+extension Result where Success == TransporterResponse, Failure == TransporterError {
+    func mapToCommunicatorResult<Response, ErrorResponse>(
+        for endpoint: Endpoint<Response, ErrorResponse>
+    ) -> Communicator.CommunicatorResult<Response, ErrorResponse> {
+
+        switch self {
+        case .success(let response):
+            return Communicator.parse(
+                response: response,
+                unpacker: endpoint.unpacker,
+                errorUnpacker: endpoint.errorUnpacker)
+
+        case .failure(let error):
+            switch error {
+            case .networkError(let underlyingError):
+                return .failure(.networkError(underlyingError: underlyingError))
+            case .unsupportedResponse:
+                return .failure(.unsupportedResponse)
+            }
+        }
+    }
+}
+
 public final class Communicator {
-    public typealias CommunicatorResult<ResultType> = Result<CommunicatorResponse<ResultType>, CommunicatorError>
-    public typealias CompletionHandler<ResultType> = (CommunicatorResult<ResultType>) -> Void
+    public typealias CommunicatorResult<ResultType, ErrorType> = Result<CommunicatorResponse<ResultType>, CommunicatorError<ErrorType>>
+    public typealias CompletionHandler<ResultType, ErrorType> = (CommunicatorResult<ResultType, ErrorType>) -> Void
 
     private let transporter: Transporter
     private let callbackQueue: DispatchQueue
@@ -27,9 +50,9 @@ public final class Communicator {
     }
 
     @discardableResult
-    public func performRequest<Response>(
-        to endpoint: Endpoint<Response>,
-        completionHandler: @escaping CompletionHandler<Response>
+    public func performRequest<Response, ErrorResponse>(
+        to endpoint: Endpoint<Response, ErrorResponse>,
+        completionHandler: @escaping CompletionHandler<Response, ErrorResponse>
     ) -> Cancellable? {
         let request: URLRequest
 
@@ -45,9 +68,7 @@ public final class Communicator {
         log(request: request, method: endpoint.method)
 
         return transporter.send(request) { [weak self] result in
-            let communicatorResult: CommunicatorResult<Response> = result.flatMap { transporterResponse in
-                return Self.parse(response: transporterResponse, unpacker: endpoint.unpacker)
-            }
+            let communicatorResult = result.mapToCommunicatorResult(for: endpoint)
 
             if case .failure(let error) = communicatorResult {
                 self?.log(error: error, url: request.url)
@@ -62,10 +83,11 @@ public final class Communicator {
 
 // MARK: - Transporter response parsing
 extension Communicator {
-    public static func parse<Response>(
+    public static func parse<Response, ErrorResponse>(
         response: TransporterResponse,
-        unpacker: Endpoint<Response>.Unpacker
-    ) -> Result<CommunicatorResponse<Response>, CommunicatorError> {
+        unpacker: Endpoint<Response, ErrorResponse>.Unpacker,
+        errorUnpacker: Endpoint<Response, ErrorResponse>.ErrorUnpacker
+    ) -> Result<CommunicatorResponse<Response>, CommunicatorError<ErrorResponse>> {
 
         switch response.urlResponse.statusCode {
         case HTTPURLResponse.successfulStatusCode:
@@ -80,14 +102,18 @@ extension Communicator {
                 return .failure(.unpackingError(underlyingError: error))
             }
         case 400..<500:
-            let errorReason = CommunicatorError.ErrorReason.clientError(
-                code: response.urlResponse.statusCode,
-                data: response.data)
+            do {
+                let errorResponse = try errorUnpacker(response.data)
+                let errorReason = CommunicatorError.ErrorReason.clientError(
+                    code: response.urlResponse.statusCode,
+                    response: errorResponse)
 
-            return .failure(.unacceptableStatusCode(errorReason))
-
+                return .failure(.unacceptableStatusCode(errorReason))
+            } catch {
+                return .failure(.unpackingError(underlyingError: error))
+            }
         default:
-            let errorReason = CommunicatorError.ErrorReason.serverError(
+            let errorReason = CommunicatorError<ErrorResponse>.ErrorReason.serverError(
                 code: response.urlResponse.statusCode)
 
             return .failure(.unacceptableStatusCode(errorReason))

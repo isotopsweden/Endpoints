@@ -10,23 +10,22 @@ import Endpoints
 
 public class TestTransporter: Transporter {
 
-    public typealias CompletionHandler = (Result<TransporterResponse, CommunicatorError>) -> Void
+    public typealias CompletionHandler = (Result<TransporterResponse, TransporterError>) -> Void
 
-    public var enqueuedResponses: [Result<TestResponse, CommunicatorError>]
+    public var enqueuedResponses: [Result<TestResponse, TransporterError>]
 
-    public init(responses: [Result<TestResponse, CommunicatorError>] = []) {
+    public init(responses: [Result<TestResponse, TransporterError>] = []) {
         self.enqueuedResponses = responses
     }
 
-    public func send(_ request: URLRequest, completionHandler: @escaping (Result<TransporterResponse, CommunicatorError>) -> Void) -> Cancellable {
-        guard let requestURL = request.url else {
-            completionHandler(.failure(.invalidURL))
-            return TestCancellable()
-        }
+    public func send(
+        _ request: URLRequest,
+        completionHandler: @escaping (Result<TransporterResponse, TransporterError>) -> Void
+    ) -> Cancellable {
 
         let testResponse = enqueuedResponses.removeFirst().map { response -> TransporterResponse in
             let urlResponse = HTTPURLResponse(
-                url: requestURL,
+                url: request.url!,
                 statusCode: response.code,
                 httpVersion: "HTTP/1.1",
                 headerFields: response.headerFields)!

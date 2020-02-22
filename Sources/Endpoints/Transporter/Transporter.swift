@@ -21,6 +21,6 @@ public protocol Transporter {
     ///   - `Cancellable` token used for cancelling the request.
     func send(
         _ request: URLRequest,
-        completionHandler: @escaping (Result<TransporterResponse, CommunicatorError>) -> Void
+        completionHandler: @escaping (Result<TransporterResponse, TransporterError>) -> Void
     ) -> Cancellable
 }
