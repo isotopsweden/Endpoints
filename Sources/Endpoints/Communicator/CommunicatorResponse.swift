@@ -18,3 +18,11 @@ public struct CommunicatorResponse<Body> {
         self.headers = headers
     }
 }
+
+public extension CommunicatorResponse where Body == Void {
+    init(code: Int, headers: [AnyHashable: Any] = [:]) {
+        self.body = ()
+        self.code = code
+        self.headers = headers
+    }
+}

@@ -11,8 +11,16 @@ import EndpointsTesting
 @testable import Endpoints
 
 class EndpointsTests: XCTestCase {
+    private let endpoint = Endpoint<TestMessage>(
+        baseURL: URL(string: "https://example.com")!,
+        path: "message",
+        method: .get,
+        unpacker: { data in
+            let decoder = JSONDecoder()
+            return try decoder.decode(TestMessage.self, from: data)
+    })
+
     func testEndpointCreatesValidURLRequest() throws {
-        let endpoint = TestEndpoint()
         switch endpoint.asURLRequest() {
         case .success(let request):
             XCTAssertEqual(request.url?.absoluteString, "https://example.com/message")
@@ -31,7 +39,7 @@ class EndpointsTests: XCTestCase {
 
         let communicatorCompletionExpectation = XCTestExpectation(description: "Communicator completion expectation")
         var expectedResult: Result<CommunicatorResponse<TestMessage>, CommunicatorError>?
-        communicator.performRequest(to: TestEndpoint()) { result in
+        communicator.performRequest(to: endpoint) { result in
             expectedResult = result
             communicatorCompletionExpectation.fulfill()
         }
@@ -52,7 +60,7 @@ class EndpointsTests: XCTestCase {
         let communicator = Communicator(transporter: testTransporter)
         let communicatorCompletionExpectation = XCTestExpectation(description: "Communicator completion expectation")
         var expectedResult: Result<CommunicatorResponse<TestMessage>, CommunicatorError>?
-        communicator.performRequest(to: TestEndpoint()) { result in
+        communicator.performRequest(to: endpoint) { result in
             expectedResult = result
             communicatorCompletionExpectation.fulfill()
         }
