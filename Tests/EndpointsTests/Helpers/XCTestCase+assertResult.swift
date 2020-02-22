@@ -1,6 +1,6 @@
 //
 //  XCTestCase+assertResult.swift
-//  Endpoints
+//  EndpointsTests
 //
 //  Created by Simon Jarbrant on 2019-10-31.
 //

@@ -7,46 +7,43 @@
 
 import Foundation
 
-public enum HTTPMethod: String {
-    case get = "GET"
-    case put = "PUT"
-    case patch = "PATCH"
-    case post = "POST"
-    case delete = "DELETE"
+public struct Endpoint<Response> {
+    public typealias Packer = () throws -> Data
+    public typealias Unpacker = (Data) throws -> Response
+
+    public var baseURL: URL
+    public var path: String
+    public var method: HTTPMethod = .get
+
+    public var queryItems: [URLQueryItem] = []
+    public var headers: [String: String] = [:]
+
+    public var packer: Packer? = nil
+    public var unpacker: Unpacker
 }
 
-public protocol Endpoint {
-    associatedtype Packer: DataPacker
-    associatedtype Unpacker: DataUnpacker
-
-    var baseURL: URL { get }
-    var path: String { get }
-    var queryItems: [URLQueryItem] { get }
-
-    var method: HTTPMethod { get }
-    var headers: [String: String] { get }
-
-    var packer: Packer { get }
-    var unpacker: Unpacker { get }
+// MARK: - Convenience init
+public extension Endpoint where Response == Void {
+    init(
+        baseURL: URL,
+        path: String,
+        method: HTTPMethod,
+        queryItems: [URLQueryItem] = [],
+        headers: [String: String] = [:],
+        packer: Packer? = nil
+    ) {
+        self.baseURL = baseURL
+        self.path = path
+        self.method = method
+        self.queryItems = queryItems
+        self.headers = headers
+        self.packer = packer
+        self.unpacker = { _ in () }
+    }
 }
 
+// MARK: - asURLRequest
 public extension Endpoint {
-    var queryItems: [URLQueryItem] {
-        return []
-    }
-
-    var headers: [String: String] {
-        return [:]
-    }
-
-    var packer: EmptyPacker {
-        return EmptyPacker()
-    }
-
-    var unpacker: EmptyUnpacker {
-        return EmptyUnpacker()
-    }
-
     func asURLRequest() -> Result<URLRequest, CommunicatorError> {
         var urlComponents = URLComponents(
             url: baseURL.appendingPathComponent(path),
@@ -60,7 +57,17 @@ public extension Endpoint {
             return .failure(.invalidURL)
         }
 
-        let requestBuilder = RequestBuilder(packer: packer)
-        return requestBuilder.buildURLRequest(url: url, headers: headers, method: method)
+        var request = URLRequest(url: url)
+        request.httpMethod = method.rawValue
+
+        if let packer = packer {
+            do {
+                request.httpBody = try packer()
+            } catch {
+                return .failure(.packingError(underlyingError: error))
+            }
+        }
+
+        return .success(request)
     }
 }
