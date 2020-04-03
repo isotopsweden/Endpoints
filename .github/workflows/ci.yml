@@ -3,12 +3,12 @@ name: CI
 on: [push]
 
 env:
-  DEVELOPER_DIR: /Applications/Xcode_11.1.app
+  DEVELOPER_DIR: /Applications/Xcode_11.4.app
 
 jobs:
   iOS:
     name: build & test (iOS)
-    runs-on: macOS-latest
+    runs-on: macos-latest
 
     steps:
       - uses: actions/checkout@v1
@@ -21,7 +21,7 @@ jobs:
 
   macOS:
     name: build & test (macOS)
-    runs-on: [macOS-latest]
+    runs-on: macos-latest
     
     steps:
       - uses: actions/checkout@v1
