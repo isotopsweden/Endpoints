@@ -20,6 +20,24 @@ public struct Endpoint<Response> {
 
     public var packer: Packer? = nil
     public var unpacker: Unpacker
+
+    public init(
+        baseURL: URL,
+        path: String,
+        method: HTTPMethod,
+        queryItems: [URLQueryItem] = [],
+        headers: [String: String] = [:],
+        packer: Packer? = nil,
+        unpacker: @escaping Unpacker
+    ) {
+        self.baseURL = baseURL
+        self.path = path
+        self.method = method
+        self.queryItems = queryItems
+        self.headers = headers
+        self.packer = packer
+        self.unpacker = unpacker
+    }
 }
 
 // MARK: - Convenience init
@@ -32,13 +50,14 @@ public extension Endpoint where Response == Void {
         headers: [String: String] = [:],
         packer: Packer? = nil
     ) {
-        self.baseURL = baseURL
-        self.path = path
-        self.method = method
-        self.queryItems = queryItems
-        self.headers = headers
-        self.packer = packer
-        self.unpacker = { _ in () }
+        self.init(
+            baseURL: baseURL,
+            path: path,
+            method: method,
+            queryItems: queryItems,
+            headers: headers,
+            packer: packer,
+            unpacker: { _ in () })
     }
 }
 
