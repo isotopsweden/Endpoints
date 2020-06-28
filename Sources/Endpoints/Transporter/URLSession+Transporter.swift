@@ -7,10 +7,11 @@
 
 import Foundation
 
-extension URLSessionDataTask: Cancellable {}
-
 extension URLSession: Transporter {
-    public func send(_ request: URLRequest, completionHandler: @escaping (Result<TransporterResponse, CommunicatorError>) -> Void) -> Cancellable {
+    public func send(
+        _ request: URLRequest,
+        completionHandler: @escaping (Result<TransporterResponse, CommunicatorError>) -> Void
+    ) -> Request {
         let task = dataTask(with: request) { data, response, error in
             switch (response, data, error) {
             case (_, _, let error?):
@@ -27,6 +28,6 @@ extension URLSession: Transporter {
 
         task.resume()
 
-        return task
+        return Request(dataTask: task)
     }
 }
