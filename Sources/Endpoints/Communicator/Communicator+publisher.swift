@@ -65,11 +65,17 @@ extension EndpointsRequestPublisher {
                 return
             }
 
-            cancellable = communicator.performRequest(to: endpoint) { [weak self] result in
-                guard let subscriber = self?.subscriber else {
-                    return
-                }
+            // Retain a strong reference to the subscriber here, to be used in the
+            // performRequest completion block below.
+            guard let subscriber = subscriber else {
+                return
+            }
 
+            // Releasing this reference ensures that the subscriber is only referenced by the
+            // completion block below, which avoids memory leaks.
+            self.subscriber = nil
+
+            cancellable = communicator.performRequest(to: endpoint) { [weak self] result in
                 switch result {
                 case .success(let response):
                     _ = subscriber.receive(response) // We don't care about any additional demand
