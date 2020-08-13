@@ -75,7 +75,7 @@ extension EndpointsRequestPublisher {
             // completion block below, which avoids memory leaks.
             self.subscriber = nil
 
-            cancellable = communicator.performRequest(to: endpoint) { [weak self] result in
+            cancellable = communicator.performRequest(to: endpoint) { result in
                 switch result {
                 case .success(let response):
                     _ = subscriber.receive(response) // We don't care about any additional demand
