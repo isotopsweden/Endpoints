@@ -69,3 +69,37 @@ class EndpointsTests: XCTestCase {
         })
     }
 }
+
+// MARK: - Combine tests
+#if canImport(Combine)
+import Combine
+
+@available(iOS 13.0, OSX 10.15, *)
+extension EndpointsTests {
+    func testReleasesCombineSubscriberAfterRequestFinishes() throws {
+        let testTransporter = TestTransporter(responses: [
+            .success(.init(code: 401, data: Data()))
+        ])
+        let communicator = Communicator(transporter: testTransporter)
+
+        var subscriber: TestSubscriber? = TestSubscriber<TestMessage>()
+        weak var subscriberReference = subscriber
+
+        communicator.publisher(for: TestEndpoint())
+            .subscribe(subscriber!)
+
+        subscriber = nil
+        XCTAssertNotNil(subscriberReference)
+
+        let expectation = XCTestExpectation()
+        subscriberReference?.onCompletion = { _ in
+            expectation.fulfill()
+        }
+
+        subscriberReference?.requestData()
+
+        wait(for: [expectation], timeout: 1)
+        XCTAssertNil(subscriberReference)
+    }
+}
+#endif
