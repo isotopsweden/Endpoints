@@ -29,7 +29,8 @@ communicator.performRequest(to: endpoint) { result in
 
 ## Usage
 
-In many cases, you'd probably be interested in the actual response data from your request. Endpoints makes decoding Swift `struct`s simple, using the `DataUnpacker` protocol and the `JSONUnpacker` type:
+In many cases, you'd probably be interested in the actual response data from your request. Endpoints makes 
+decoding Swift `struct`s simple, using the associated `ResponseType` type:
 
 ```swift
 // Define your model
@@ -39,12 +40,12 @@ struct MyModel: Decodable {
 }
 
 struct MyEndpoint: Endpoint {
+    // Declare a ResponseType in your endpoint
+    typealias ResponseType = MyModel
+
     let baseURL: URL = URL(string: "https://mysite.com/api")!
     let path: String = "/mymodel/1"
     let method: HTTPMethod = .get
-
-    // Declare a DataUnpacker in your endpoint
-    let unpacker: JSONUnpacker = JSONUnpacker<MyModel>(decoder: JSONDecoder())
 }
 
 communicator.performRequest(to: endpoint) { result in
@@ -58,10 +59,29 @@ communicator.performRequest(to: endpoint) { result in
 }
 ```
 
-If you need to unpack other types of data, have a look at the `DataUnpacker` protocol.
+By default, Endpoints assumes JSON decoding. If you need to change the default decoding behavior you can simply
+set the static `Communicator.defaultDecoder` property to a decoder of your choosing. If you want to mix and match,
+you can leave the default as it is and override the `unpack(data:)` function in your Endpoint implementations to 
+provide custom decoding there.
+
+#### Combine
+Endpoints also comes with built-in support for Apple's Combine framework:
+
+```swift
+communicator.publisher(for: endpoint)
+    .sink(
+        receiveCompletion: { completion in
+            // Handle successful completion or failure
+        },
+        receiveValue: { response in
+            // Handle a successful response here
+        }
+    )
+```
 
 ### Customization through extensions
-In the above example, we use a plain `JSONDecoder` without any custom decoding options set. However, you may want to customize this. A good approach is to use extensions:
+In the above example, we use a plain `JSONDecoder` without any custom decoding options set. However, you may 
+want to customize this. A good approach is to use extensions:
 
 ```swift
 extension JSONDecoder {
@@ -75,38 +95,32 @@ extension JSONDecoder {
 }
 ```
 
-Then, to use it in your endpoint:
+Then, to use it for all endpoints:
 
 ```swift
-struct MyEndpoint: Endpoint {
-    let baseURL: URL = URL(string: "https://mysite.com/api")!
-    let path: String = "/mymodel/1"
-    let method: HTTPMethod = .get
-
-    let unpacker: JSONUnpacker = JSONUnpacker<MyModel>(decoder: .myDecoder)
-}
+Communicator.defaultDecoder = .myDecoder
 ```
 
-If you want to use your `.myDecoder` in multiple endpoints, it might be a good idea to extend the JSONUnpacker type with a convenience initializer:
+Or just in a single endpoint:
 
 ```swift
-extension JSONUnpacker {
-    init() {
-        self.init(decoder: .myDecoder)
-    }
-}
-
 struct MyEndpoint: Endpoint {
+    typealias ResponseType = MyModel
+
     let baseURL: URL = URL(string: "https://mysite.com/api")!
     let path: String = "/mymodel/1"
     let method: HTTPMethod = .get
 
-    let unpacker: JSONUnpacker = JSONUnpacker<MyModel>()
+    func unpack(data: Data) throws -> MyModel {
+        let decoder = JSONDecoder.myDecoder
+        return try decoder.decode(MyModel.self, from: data)
+    }
 }
 ```
 
 #### Common extensions
-In many cases you want to use a single `baseURL` for all your endpoints, which you can enable by extending the `Endpoint` protocol:
+In many cases you want to use a single `baseURL` for all your endpoints, which you can enable by extending the
+`Endpoint` protocol:
 
 ```swift
 extension Endpoint {
@@ -117,15 +131,20 @@ extension Endpoint {
 ```
 
 ### Transporters
-The `Communicator` class relies on the `Transporter` protocol to do the heavy lifting. This is a simple procotol containing a single function:
+The `Communicator` class relies on the `Transporter` protocol to do the heavy lifting. This is a simple procotol 
+containing a single function:
 
 ```swift
 public protocol Transporter {
-    func send(_ request: URLRequest, completionHandler: @escaping (Result<TransportationResult, CommunicatorError>) -> Void) -> Cancellable
+    func send(
+        _ request: URLRequest, 
+        completionHandler: @escaping (Result<TransportationResult, CommunicatorError>) -> Void
+    ) -> Request
 }
 ```
 
-By default, Endpoints extends `URLSession` to conform to this protocol and then uses it to perform the actual network requests. This allows you to create your own custom `Transporter`s, for example for authentication:
+By default, Endpoints extends `URLSession` to conform to this protocol and then uses it to perform the actual 
+network requests. This allows you to create your own custom `Transporter`s, for example for authentication:
 
 ```swift
 class AuthorizationTransporter: Transporter {
@@ -137,7 +156,10 @@ class AuthorizationTransporter: Transporter {
         self.authenticationDetails = authenticationDetails
     }
 
-    func send(_ request: URLRequest, completionHandler: @escaping (Result<TransportationResult, CommunicatorError>) -> Void) -> Cancellable {
+    func send(
+        _ request: URLRequest, 
+        completionHandler: @escaping (Result<TransportationResult, CommunicatorError>) -> Void
+    ) -> Request {
         var modifiedRequest = request
         modifiedRequest.addValue("Basic \(authenticationDetails)", forHTTPHeaderField: "Authorization")
 
@@ -150,7 +172,8 @@ let communicator = Communicator(transporter: authTransporter)
 ```
 
 ### Testing
-You are likely to want to test your code that is built on top of Endpoints. To assist you with this, Endpoints includes the EndpointsTesting package that provides you with helpful classes when testing. Below is a sample snippet of its usage:
+You are likely to want to test your code that is built on top of Endpoints. To assist you with this, Endpoints includes the 
+EndpointsTesting package that provides you with helpful classes when testing. Below is a sample snippet of its usage:
 
 ```swift
 import EndpointsTesting
@@ -175,5 +198,5 @@ class MyTestCase: XCTestCase {
 To get started using Endpoints, simply add it as a Swift Package dependency: 
 
 ```
-.package(url: "https://github.com/isotopsweden/Endpoints", from: "2.0.0")
+.package(url: "https://github.com/isotopsweden/Endpoints", from: "3.0.0")
 ```
