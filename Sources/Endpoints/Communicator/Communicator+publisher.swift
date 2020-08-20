@@ -52,7 +52,7 @@ extension EndpointsRequestPublisher {
         private let communicator: Communicator
         private let endpoint: E
 
-        private var cancellable: Endpoints.Cancellable?
+        private var request: Request?
 
         init(subscriber: Subscriber, communicator: Communicator, endpoint: E) {
             self.subscriber = subscriber
@@ -61,7 +61,7 @@ extension EndpointsRequestPublisher {
         }
 
         func request(_ demand: Subscribers.Demand) {
-            guard demand > 0, cancellable == nil else {
+            guard demand > 0, request == nil else {
                 return
             }
 
@@ -75,7 +75,7 @@ extension EndpointsRequestPublisher {
             // completion block below, which avoids memory leaks.
             self.subscriber = nil
 
-            cancellable = communicator.performRequest(to: endpoint) { result in
+            request = communicator.performRequest(to: endpoint) { result in
                 switch result {
                 case .success(let response):
                     _ = subscriber.receive(response) // We don't care about any additional demand
@@ -87,7 +87,7 @@ extension EndpointsRequestPublisher {
         }
 
         func cancel() {
-            cancellable?.cancel()
+            request?.cancel()
             subscriber = nil
         }
     }
