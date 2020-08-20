@@ -18,9 +18,9 @@ public protocol Transporter {
     ///   - completionHandler: called upon completion with either `.success` or `.failure` depending on outcome.
     ///
     /// - Returns:
-    ///   - `Cancellable` token used for cancelling the request.
+    ///   - `Request` token used for cancelling or inspecting the request.
     func send(
         _ request: URLRequest,
         completionHandler: @escaping (Result<TransporterResponse, CommunicatorError>) -> Void
-    ) -> Cancellable
+    ) -> Request
 }

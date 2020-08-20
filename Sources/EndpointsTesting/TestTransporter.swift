@@ -18,10 +18,13 @@ public class TestTransporter: Transporter {
         self.enqueuedResponses = responses
     }
 
-    public func send(_ request: URLRequest, completionHandler: @escaping (Result<TransporterResponse, CommunicatorError>) -> Void) -> Cancellable {
+    public func send(
+        _ request: URLRequest,
+        completionHandler: @escaping (Result<TransporterResponse, CommunicatorError>) -> Void
+    ) -> Request {
         guard let requestURL = request.url else {
             completionHandler(.failure(.invalidURL))
-            return TestCancellable()
+            return Request {}
         }
 
         let testResponse = enqueuedResponses.removeFirst().map { response -> TransporterResponse in
@@ -35,7 +38,7 @@ public class TestTransporter: Transporter {
         }
 
         completionHandler(testResponse)
-        return TestCancellable()
+        return Request {}
     }
 }
 
@@ -50,15 +53,6 @@ extension TestTransporter {
             self.code = code
             self.headerFields = headerFields
             self.data = data
-        }
-    }
-}
-
-// MARK: - TestCancellable
-extension TestTransporter {
-    public class TestCancellable: Cancellable {
-        public func cancel() {
-            // Unused
         }
     }
 }

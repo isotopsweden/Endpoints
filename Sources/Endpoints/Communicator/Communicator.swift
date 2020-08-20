@@ -16,14 +16,21 @@ public final class Communicator {
 
     private let logger: Logger?
 
-    public init(transporter: Transporter = URLSession.shared, callbackQueue: DispatchQueue = .main, logger: Logger? = nil) {
+    public init(
+        transporter: Transporter = URLSession.shared,
+        callbackQueue: DispatchQueue = .main,
+        logger: Logger? = nil
+    ) {
         self.transporter = transporter
         self.callbackQueue = callbackQueue
         self.logger = logger
     }
 
     @discardableResult
-    public func performRequest<E>(to endpoint: E, completionHandler: @escaping CompletionHandler<E.Unpacker.DataType>) -> Cancellable? where E: Endpoint {
+    public func performRequest<E>(
+        to endpoint: E,
+        completionHandler: @escaping CompletionHandler<E.Unpacker.DataType>
+    ) -> Request? where E: Endpoint {
         let request: URLRequest
 
         switch endpoint.asURLRequest() {
