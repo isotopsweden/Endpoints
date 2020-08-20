@@ -14,7 +14,7 @@ public struct Request {
         self._cancel = cancel
     }
 
-    func cancel() {
+    public func cancel() {
         _cancel()
     }
 }
