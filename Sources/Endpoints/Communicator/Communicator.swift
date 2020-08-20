@@ -16,7 +16,7 @@ public final class Communicator {
 
     private let logger: Logger?
 
-    static var defaultDecoder: Decoder = JSONDecoder()
+    public static var defaultDecoder: Decoder = JSONDecoder()
 
     public init(
         transporter: Transporter = URLSession.shared,
