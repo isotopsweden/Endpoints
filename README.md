@@ -59,10 +59,8 @@ communicator.performRequest(to: endpoint) { result in
 }
 ```
 
-By default, Endpoints assumes JSON decoding. If you need to change the default decoding behavior you can simply
-set the static `Communicator.defaultDecoder` property to a decoder of your choosing. If you want to mix and match,
-you can leave the default as it is and override the `unpack(data:)` function in your Endpoint implementations to 
-provide custom decoding there.
+By default, Endpoints assumes JSON decoding. If you need to change the default decoding behavior, have a look at
+the "Customization through extensions" section.
 
 #### Combine
 Endpoints also comes with built-in support for Apple's Combine framework:
@@ -80,28 +78,23 @@ communicator.publisher(for: endpoint)
 ```
 
 ### Customization through extensions
-In the above example, we use a plain `JSONDecoder` without any custom decoding options set. However, you may 
-want to customize this. A good approach is to use extensions:
+If you need to change the default decoding behavior of your endpoints, you can simply override the default 
+implementation:
 
 ```swift
-extension JSONDecoder {
-    static var myDecoder: JSONDecoder {
+extension Endpoint where ResponseType: Decodable {
+    func unpack(data: Data) throws -> ResponseType {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .secondsSince1970
         decoder.keyDecodingStrategy = .convertFromSnakeCase
 
-        return decoder
+        return try decoder.decode(ResponseType.self, from: data)
     }
 }
 ```
 
-Then, to use it for all endpoints:
-
-```swift
-Communicator.defaultDecoder = .myDecoder
-```
-
-Or just in a single endpoint:
+If you want to mix and match, you can leave the default as it is and override the `unpack(data:)` function in your 
+Endpoint implementations to provide custom decoding there:
 
 ```swift
 struct MyEndpoint: Endpoint {

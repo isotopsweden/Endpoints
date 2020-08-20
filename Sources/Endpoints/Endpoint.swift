@@ -54,7 +54,7 @@ public extension Endpoint where ResponseType == Void {
 
 public extension Endpoint where ResponseType: Decodable {
     func unpack(data: Data) throws -> ResponseType {
-        let decoder = Communicator.defaultDecoder
+        let decoder = JSONDecoder()
         return try decoder.decode(ResponseType.self, from: data)
     }
 }

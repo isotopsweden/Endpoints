@@ -16,8 +16,6 @@ public final class Communicator {
 
     private let logger: Logger?
 
-    public static var defaultDecoder: Decoder = JSONDecoder()
-
     public init(
         transporter: Transporter = URLSession.shared,
         callbackQueue: DispatchQueue = .main,
