@@ -12,7 +12,7 @@ import Combine
 public extension Communicator {
     func publisher<E: Endpoint>(
         for endpoint: E
-    ) -> AnyPublisher<CommunicatorResponse<E.Unpacker.DataType>, CommunicatorError> {
+    ) -> AnyPublisher<CommunicatorResponse<E.ResponseType>, CommunicatorError> {
         return EndpointsRequestPublisher(communicator: self, endpoint: endpoint)
             .eraseToAnyPublisher()
     }
@@ -21,7 +21,7 @@ public extension Communicator {
 // MARK: - Publisher
 @available(iOS 13.0, OSX 10.15, *)
 public struct EndpointsRequestPublisher<E: Endpoint>: Publisher {
-    public typealias Output = CommunicatorResponse<E.Unpacker.DataType>
+    public typealias Output = CommunicatorResponse<E.ResponseType>
     public typealias Failure = CommunicatorError
 
     public let communicator: Communicator
@@ -46,7 +46,7 @@ public struct EndpointsRequestPublisher<E: Endpoint>: Publisher {
 @available(iOS 13.0, OSX 10.15, *)
 extension EndpointsRequestPublisher {
     final class Subscription<Subscriber: Combine.Subscriber>: Combine.Subscription
-    where Subscriber.Input == CommunicatorResponse<E.Unpacker.DataType>, Subscriber.Failure == CommunicatorError {
+    where Subscriber.Input == CommunicatorResponse<E.ResponseType>, Subscriber.Failure == CommunicatorError {
 
         private var subscriber: Subscriber?
         private let communicator: Communicator
