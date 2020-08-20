@@ -10,8 +10,9 @@ import Foundation
 @testable import Endpoints
 
 struct TestEndpoint: Endpoint {
+    typealias ResponseType = TestMessage
+
     var baseURL: URL = URL(string: "https://example.com")!
     var path: String = "message"
     var method: HTTPMethod = .get
-    var unpacker: JSONUnpacker<TestMessage> = JSONUnpacker(decoder: JSONDecoder())
 }

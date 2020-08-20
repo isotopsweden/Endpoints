@@ -16,8 +16,7 @@ public enum HTTPMethod: String {
 }
 
 public protocol Endpoint {
-    associatedtype Packer: DataPacker
-    associatedtype Unpacker: DataUnpacker
+    associatedtype ResponseType
 
     var baseURL: URL { get }
     var path: String { get }
@@ -26,10 +25,12 @@ public protocol Endpoint {
     var method: HTTPMethod { get }
     var headers: [String: String] { get }
 
-    var packer: Packer { get }
-    var unpacker: Unpacker { get }
+    func pack() throws -> Data?
+
+    func unpack(data: Data) throws -> ResponseType
 }
 
+// MARK: - Defaults
 public extension Endpoint {
     var queryItems: [URLQueryItem] {
         return []
@@ -39,14 +40,27 @@ public extension Endpoint {
         return [:]
     }
 
-    var packer: EmptyPacker {
-        return EmptyPacker()
+    func pack() throws -> Data? {
+        return nil
     }
+}
 
-    var unpacker: EmptyUnpacker {
-        return EmptyUnpacker()
+// MARK: - Default unpackers
+public extension Endpoint where ResponseType == Void {
+    func unpack(data: Data) throws -> Void {
+        return ()
     }
+}
 
+public extension Endpoint where ResponseType: Decodable {
+    func unpack(data: Data) throws -> ResponseType {
+        let decoder = Communicator.defaultDecoder
+        return try decoder.decode(ResponseType.self, from: data)
+    }
+}
+
+// MARK: - asURLRequest
+public extension Endpoint {
     func asURLRequest() -> Result<URLRequest, CommunicatorError> {
         var urlComponents = URLComponents(
             url: baseURL.appendingPathComponent(path),
@@ -60,7 +74,16 @@ public extension Endpoint {
             return .failure(.invalidURL)
         }
 
-        let requestBuilder = RequestBuilder(packer: packer)
-        return requestBuilder.buildURLRequest(url: url, headers: headers, method: method)
+        var request = URLRequest(url: url)
+        request.httpMethod = method.rawValue
+        request.allHTTPHeaderFields = headers
+
+        do {
+            request.httpBody = try pack()
+        } catch {
+            return .failure(.packingError(underlyingError: error))
+        }
+
+        return .success(request)
     }
 }

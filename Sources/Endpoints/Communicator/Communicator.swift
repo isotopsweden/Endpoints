@@ -16,6 +16,8 @@ public final class Communicator {
 
     private let logger: Logger?
 
+    static var defaultDecoder: Decoder = JSONDecoder()
+
     public init(
         transporter: Transporter = URLSession.shared,
         callbackQueue: DispatchQueue = .main,
@@ -29,7 +31,7 @@ public final class Communicator {
     @discardableResult
     public func performRequest<E>(
         to endpoint: E,
-        completionHandler: @escaping CompletionHandler<E.Unpacker.DataType>
+        completionHandler: @escaping CompletionHandler<E.ResponseType>
     ) -> Request? where E: Endpoint {
         let request: URLRequest
 
@@ -45,10 +47,11 @@ public final class Communicator {
         log(request: request, method: endpoint.method)
 
         return transporter.send(request) { [weak self] result in
-            let responseParseResult = result.flatMap { transporterResponse -> Result<CommunicatorResponse<E.Unpacker.DataType>, CommunicatorError> in
-                let parser = ResponseParser(unpacker: endpoint.unpacker)
-                return parser.parseResponse(response: transporterResponse.urlResponse,
-                                            data: transporterResponse.data)
+            let responseParseResult = result.flatMap { transporterResponse in
+                return Self.parseResponse(
+                    response: transporterResponse.urlResponse,
+                    data: transporterResponse.data,
+                    unpacker: endpoint.unpack)
             }
 
             if case .failure(let error) = responseParseResult {
@@ -77,5 +80,32 @@ public final class Communicator {
         let urlString = url?.absoluteString ?? "<Missing URL>"
 
         logger?.log("<Communicator> \(urlString) error: \(error)")
+    }
+}
+
+// MARK: - Response parsing
+extension Communicator {
+    static func parseResponse<ResponseType>(
+        response: HTTPURLResponse,
+        data: Data,
+        unpacker: (Data) throws -> ResponseType
+    ) -> Result<CommunicatorResponse<ResponseType>, CommunicatorError> {
+        switch response.statusCode {
+        case HTTPURLResponse.successfulStatusCode:
+            let unpackerResult = Result {
+                CommunicatorResponse(
+                    body: try unpacker(data),
+                    code: response.statusCode,
+                    headers: response.allHeaderFields)
+            }
+
+            return unpackerResult.mapError(CommunicatorError.unpackingError)
+
+        case 400..<500:
+            return .failure(.unacceptableStatusCode(.clientError(code: response.statusCode, data: data)))
+
+        default:
+            return .failure(.unacceptableStatusCode(.serverError(code: response.statusCode)))
+        }
     }
 }
