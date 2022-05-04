@@ -3,7 +3,8 @@ name: CI
 on: [push]
 
 env:
-  DEVELOPER_DIR: /Applications/Xcode_11.5.app
+  DEVELOPER_DIR: /Applications/Xcode_13.1.app
+  XCODE_DEVELOPER_DIR_PATH: /Applications/Xcode_13.1.app/Contents/Developer
 
 jobs:
   build:
