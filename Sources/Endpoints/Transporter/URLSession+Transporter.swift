@@ -30,4 +30,20 @@ extension URLSession: Transporter {
 
         return Request(dataTask: task)
     }
+
+    @available(iOS 15, *)
+    public func send(_ request: URLRequest) async -> Result<TransporterResponse, CommunicatorError> {
+        do {
+            let (data, urlResponse) = try await URLSession.shared.data(for: request)
+            
+            guard let httpUrlResponse = urlResponse as? HTTPURLResponse else {
+                return .failure(.unsupportedResponse)
+            }
+
+            return .success(TransporterResponse(response: httpUrlResponse, data: data))
+
+        } catch {
+            return .failure(.networkError(underlyingError: error))
+        }
+    }
 }
