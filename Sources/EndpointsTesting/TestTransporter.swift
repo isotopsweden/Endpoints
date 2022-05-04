@@ -9,7 +9,6 @@ import Foundation
 import Endpoints
 
 public class TestTransporter: Transporter {
-
     public typealias CompletionHandler = (Result<TransporterResponse, CommunicatorError>) -> Void
 
     public var enqueuedResponses: [Result<TestResponse, CommunicatorError>]
@@ -39,6 +38,25 @@ public class TestTransporter: Transporter {
 
         completionHandler(testResponse)
         return Request {}
+    }
+
+    @available(iOS 15, *)
+    public func send(_ request: URLRequest) async -> Result<TransporterResponse, CommunicatorError> {
+        guard let requestURL = request.url else {
+            return .failure(.invalidURL)
+        }
+
+        let testResponse = enqueuedResponses.removeFirst().map { response -> TransporterResponse in
+            let urlResponse = HTTPURLResponse(
+                url: requestURL,
+                statusCode: response.code,
+                httpVersion: "HTTP/1.1",
+                headerFields: response.headerFields)!
+
+            return TransporterResponse(response: urlResponse, data: response.data)
+        }
+
+        return testResponse
     }
 }
 
