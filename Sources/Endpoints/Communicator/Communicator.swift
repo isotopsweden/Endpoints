@@ -62,6 +62,37 @@ public final class Communicator {
         }
     }
 
+    @available(iOS 15, *)
+    func performRequest<E>(
+        to endpoint: E
+    ) async throws -> Result<CommunicatorResponse<E.ResponseType>, CommunicatorError> where E: Endpoint {
+        let request: URLRequest
+
+        switch endpoint.asURLRequest() {
+        case .success(let createdRequest):
+            request = createdRequest
+        case .failure(let error):
+            log(error: error)
+            return .failure(error)
+        }
+
+        log(request: request, method: endpoint.method)
+
+        let result = await transporter.send(request)
+        let responseParseResult = result.flatMap { transporterResponse in
+            return Self.parseResponse(
+                response: transporterResponse.urlResponse,
+                data: transporterResponse.data,
+                unpacker: endpoint.unpack)
+        }
+
+        if case .failure(let error) = responseParseResult {
+            self.log(error: error, url: request.url)
+        }
+
+        return responseParseResult
+    }
+
     private func log(request: URLRequest, method: HTTPMethod) {
         let urlString = request.url?.absoluteString ?? "<Missing URL>"
 
